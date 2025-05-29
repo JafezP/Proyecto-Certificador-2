@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Dispositivo - Smartphones Perú</title>
+</head>
+<body>
+
+<h1>Registrar Nuevo Dispositivo</h1>
+
+<form action="/dispositivos/save" method="POST" th:object="${dispositivo}">
+
+    <div>
+        <label for="idCliente">ID del Cliente:</label><br>
+        <input type="text" id="idCliente" name="idCliente" placeholder="Ingrese el ID del cliente" required><br><br>
+    </div>
+
+    <div>
+        <label for="tipo_dispositivo">Tipo de Dispositivo:</label><br>
+        <input type="text" id="tipo_dispositivo" th:field="*{tipo_dispositivo}" placeholder="Ej. Smartphone, Tablet, Laptop" required><br><br>
+    </div>
+
+    <div>
+        <label for="marca">Marca:</label><br>
+        <input type="text" th:field="*{marca}" placeholder="Ej. Samsung, Apple, Xiaomi" required><br><br>
+    </div>
+
+    <div>
+        <label for="modelo">Modelo:</label><br>
+        <input type="text" th:field="*{modelo}" placeholder="Ej. Galaxy S23, iPhone 15 Pro" required><br><br>
+    </div>
+
+    <div>
+        <label for="numeroSerieImei">Número de Serie / IMEI:</label><br>
+        <input type="text" th:field="*{numeroSerieImei}" placeholder="Ingrese el número de serie o IMEI" required><br><br>
+    </div>
+
+    <div>
+        <label for="color">Color (Opcional):</label><br>
+        <input type="text" th:field="*{color}" placeholder="Ej. Negro, Blanco, Azul"><br><br>
+    </div>
+
+    <div>
+        <label for="descripcionProblemaInicial">Descripción del Problema Inicial:</label><br>
+        <textarea th:field="*{descripcionProblemaInicial}" rows="5" placeholder="Describa el problema reportado por el cliente" required></textarea><br><br>
+    </div>
+
+    <div>
+        <label for="observacionesAdicionales">Observaciones Adicionales (Opcional):</label><br>
+        <textarea th:field="*{observacionesAdicionales}" rows="3" placeholder="Ej. Daños estéticos, accesorios entregados"></textarea><br><br>
+    </div>
+
+    <div>
+        <button type="submit">Registrar Dispositivo</button>
+        <a href="/dispositivos">Volver a Dispositivos</a>
+    </div>
+</form>
+
+</body>
+</html>
