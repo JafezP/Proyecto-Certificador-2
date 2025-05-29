@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Perú</title>
+</head>
+<body>
+    <h2>Registrar Repuesto</h2>
+    <form th:action="@{/repuestos/save}" method="post" th:object="${repuestos}">
+        <div>
+            <label for="txtNombre">Nombre</label>
+            <input type="text" id="txtNombre" th:field="*{nomRepuesto}" required>
+            <br>
+            <label for="txtDescripcion">Descripcion</label>
+            <input type="text" id="txtDescripcion" th:field="*{descripcion}" required>
+            <br>
+            <label for="txtNumModelo">N° Modelo</label>
+            <input type="text" id="txtNumModelo" th:field="*{numModelo}" required>
+            <br>
+            <label for="txtCantidad">Cantidad</label>
+            <input type="text" id="txtCantidad" th:field="*{cantidad}" required>
+            <br>
+            <label for="txtPrecioUnitario">Precio Unitario</label>
+            <input type="text" id="txtPrecioUnitario" th:field="*{precioUnitario}" required>
+            <br>
+            <button type="submit" class="btn-registrar">Guardar</button>
+            <button type="button" onclick="history.back()">Cancelar</button>
+        </div>
+    </form>
+</body>
+</html>

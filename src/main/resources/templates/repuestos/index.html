@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Perú</title>
+</head>
+<body>
+    <h2>Lista de Repuestos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Descripcion</td>
+                <td>N° Modelo</td>
+                <td>Cantidad</td>
+                <td>Precio Unitario</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="repuesto : ${repuestos}">
+                <td th:text="${repuesto.id}"></td>
+                <td th:text="${repuesto.nomRepuesto}"></td>
+                <td th:text="${repuesto.descripcion}"></td>
+                <td th:text="${repuesto.numModelo}"></td>
+                <td th:text="${repuesto.cantidad}"></td>
+                <td th:text="${repuesto.precioUnitario}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
