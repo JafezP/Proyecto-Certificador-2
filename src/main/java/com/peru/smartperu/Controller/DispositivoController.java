@@ -11,30 +11,27 @@ import org.springframework.web.bind.annotation.PostMapping; // Necesario para @P
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@AllArgsConstructor // Inyecta automáticamente DispositivoService
+@AllArgsConstructor
 @RequestMapping("dispositivos")
 public class DispositivoController {
-    // Inyecta el servicio correctamente.
+
     private final DispositivoService dispositivoService;
 
-    @GetMapping // Muestra la lista de dispositivos
+    @GetMapping
     public String index(Model model) {
         model.addAttribute("dispositivos", dispositivoService.findAll());
-        return "dispositivos/index"; // Retorna la vista index.html para dispositivos
+        return "dispositivos/index";
     }
 
-    @GetMapping("/create") // Muestra el formulario de creación
+    @GetMapping("/create")
     public String create(Model model) {
-        // CAMBIO CLAVE: Usa "dispositivo" (singular) para el objeto nuevo
-        model.addAttribute("dispositivo", new Dispositivo());
-        return "dispositivos/create"; // Retorna la vista create.html para dispositivos
+        model.addAttribute("dispositivos", new Dispositivo());
+        return "dispositivos/create";
     }
 
-    // CAMBIO CLAVE: Debe ser @PostMapping para procesar formularios enviados
-    // Usa @ModelAttribute("dispositivo") para enlazar los datos del formulario al objeto Dispositivo
     @PostMapping("/save")
-    public String save(@ModelAttribute("dispositivo") Dispositivo dispositivo) {
+    public String save(@ModelAttribute("dispositivos") Dispositivo dispositivo) {
         dispositivoService.save(dispositivo);
-        return "redirect:/dispositivos"; // Redirige a la lista de dispositivos después de guardar
+        return "redirect:/dispositivos";
     }
 }

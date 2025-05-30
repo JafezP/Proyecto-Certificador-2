@@ -34,7 +34,7 @@ public class SmartPhone {
     @Column(name = "color", nullable = false)
     private String color;
 
-    @Column(name = "color", nullable = false)
+    @Column(name = "almacenamiento", nullable = false)
     private String almacenamiento;
 
     @Column(name = "precio", nullable = false)
