@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor // Inyecta automáticamente DispositivoService
-@RequestMapping("/dispositivos")
+@RequestMapping("dispositivos")
 public class DispositivoController {
     // Inyecta el servicio correctamente.
     private final DispositivoService dispositivoService;

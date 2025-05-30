@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -16,20 +18,27 @@ public class Repuesto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_repuesto")
+    private Integer idRepuesto;
 
-    @Column(name = "nom_repuesto", nullable = false)
-    private String nomRepuesto;
+    @Column(name = "nombre_repuesto", nullable = false)
+    private String nombreRepuesto;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @Column(name = "num_modelo", nullable = false)
-    private String numModelo;
+    @Column(name = "numero_parte", nullable = false)
+    private String numeroParte;
 
-    @Column(name = "cantidad", nullable = false)
-    private String cantidad;
+    @Column(name = "cantidad_stock", nullable = false)
+    private String cantidadStock;
 
-    @Column(name = "precio_unitario", nullable = false)
-    private String precioUnitario;
+    @Column(name = "precio_compra", nullable = false)
+    private String precioCompra;
+
+    @Column(name = "precio_venta_sugerido", nullable = false)
+    private String precioVentaSugerido;
+
+    @Column(name = "fecha_registro", nullable = false)
+    private LocalDate fechaRegistro;
 }

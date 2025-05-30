@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/repuestos")
+@RequestMapping("repuestos")
 public class RepuestoController {
 
     private final RepuestoService repuestoService;
@@ -23,11 +23,11 @@ public class RepuestoController {
     @GetMapping("/create")
     public  String create(Model model) {
         model.addAttribute("repuesto", new Repuesto());
-        return "roomstatus/create";
+        return "repuestos/create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("roomstatus") Repuesto repuesto) {
+    public String save(@ModelAttribute("repuestos") Repuesto repuesto) {
         repuestoService.save(repuesto);
         return "redirect:/repuestos";
     }

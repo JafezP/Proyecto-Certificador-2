@@ -12,19 +12,23 @@
                 <td>ID</td>
                 <td>Nombre</td>
                 <td>Descripcion</td>
-                <td>N° Modelo</td>
+                <td>N° Parte</td>
                 <td>Cantidad</td>
-                <td>Precio Unitario</td>
+                <td>Precio de Compra</td>
+                <td>Precio de Venta</td>
+                <td>Fecha</td>
             </tr>
         </thead>
         <tbody>
             <tr th:each="repuesto : ${repuestos}">
-                <td th:text="${repuesto.id}"></td>
-                <td th:text="${repuesto.nomRepuesto}"></td>
+                <td th:text="${repuesto.idRepuesto}"></td>
+                <td th:text="${repuesto.nombreRepuesto}"></td>
                 <td th:text="${repuesto.descripcion}"></td>
-                <td th:text="${repuesto.numModelo}"></td>
-                <td th:text="${repuesto.cantidad}"></td>
-                <td th:text="${repuesto.precioUnitario}"></td>
+                <td th:text="${repuesto.numeroParte}"></td>
+                <td th:text="${repuesto.cantidadStock}"></td>
+                <td th:text="${repuesto.precioCompra}"></td>
+                <td th:text="${repuesto.precioVentaSugerido}"></td>
+                <td th:text="${repuesto.fechaRegistro}"></td>
             </tr>
         </tbody>
     </table>

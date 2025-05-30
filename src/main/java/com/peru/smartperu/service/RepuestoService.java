@@ -21,7 +21,7 @@ public class RepuestoService {
         return repuestoRepository.findById(id).orElse(null);
     }
 
-    public Repuesto save(Repuesto repuesto) {
-        return repuestoRepository.save(repuesto);
+    public void save(Repuesto repuesto) {
+        repuestoRepository.save(repuesto);
     }
 }
