@@ -10,7 +10,6 @@
     <thead>
     <tr>
         <td>Id Dispositivo</td>
-        <!--<td>Id Cliente</td>-->
         <td>Tipo de dispositivo</td>
         <td>Marca</td>
         <td>Modelo</td>
@@ -22,17 +21,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="dispositivo : ${dispositivo}">
-        <td th:text="${dispositivo.id_dispositivo}"></td>
-        <!--<td th:text="${dispositivo.id_cliente}"></td>-->
-        <td th:text="${dispositivo.tipo_dispositivo}"></td>
+    <tr th:each="dispositivo : ${dispositivos}">
+        <td th:text="${dispositivo.idDispositivo}"></td>
+        <td th:text="${dispositivo.tipoDispositivo}"></td>
         <td th:text="${dispositivo.marca}"></td>
         <td th:text="${dispositivo.modelo}"></td>
-        <td th:text="${dispositivo.numero_serie_imei}"></td>
+        <td th:text="${dispositivo.numeroSerieImei}"></td>
         <td th:text="${dispositivo.color}"></td>
-        <td th:text="${dispositivo.descripcion_problema_inicial}"></td>
-        <td th:text="${dispositivo.observaciones_adicionales}"></td>
-        <td th:text="${dispositivo.fecha_registro}"></td>
+        <td th:text="${dispositivo.descripcionProblemaInicial}"></td>
+        <td th:text="${dispositivo.observacionesAdicionales}"></td>
+        <td th:text="${dispositivo.fechaRegistro}"></td>
     </tr>
     </tbody>
 </table>

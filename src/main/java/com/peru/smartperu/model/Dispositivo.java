@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.service.annotation.GetExchange;
-
-import javax.xml.crypto.Data;
-import java.util.Date;
+import java.util.Date; // java.util.Date está bien, pero java.time.LocalDate/LocalDateTime es más moderno
 
 @Entity
 @Getter
@@ -19,35 +16,36 @@ import java.util.Date;
 public class Dispositivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_dispositivo;
-    //@ManyToOne
-    //@JoinColumn(name = "id_cliente")
-    //private Integer id_cliente;
+    @Column(name = "id_dispositivo") // Es buena práctica especificar el nombre de la columna para la PK también
+    private Integer idDispositivo; // CAMBIO: de id_dispositivo a idDispositivo
+
+    // Descomentar cuando tengas la entidad Cliente y quieras la relación
+    // @ManyToOne
+    // @JoinColumn(name = "id_cliente") // Nombre de la columna FK en tu tabla de DB
+    // private Cliente cliente; // Si se asocia con un objeto Cliente
+
     @Column(name = "tipo_dispositivo", nullable = false)
-    private String tipo_dispositivo;
+    private String tipoDispositivo; // ¡YA ESTABA BIEN!
 
     @Column(name = "marca", nullable = false)
-    private String marca;
+    private String marca; // ¡YA ESTABA BIEN!
 
     @Column(name = "modelo", nullable = false)
-    private String modelo;
+    private String modelo; // ¡YA ESTABA BIEN!
 
     @Column(name = "numero_serie_imei", nullable = false)
-    private String numero_serie_imei;
+    private String numeroSerieImei; // CAMBIO CLAVE: de numeroSerie_imei a numeroSerieImei (sin guion bajo)
 
     @Column(name = "color", nullable = false)
-    private String color;
+    private String color; // ¡YA ESTABA BIEN!
 
     @Column(name = "descripcion_problema_inicial", nullable = false)
-    private String descripcion_problema_inicial;
+    private String descripcionProblemaInicial; // ¡YA ESTABA BIEN!
 
     @Column(name = "observaciones_adicionales")
-    private String observaciones_adicionales;
+    private String observacionesAdicionales; // ¡YA ESTABA BIEN!
 
     @Column(name = "fecha_registro", nullable = false)
-    private Date fecha_registro;
-
-
-
+    private Date fechaRegistro; // ¡YA ESTABA BIEN!
 
 }
