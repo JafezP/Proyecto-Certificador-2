@@ -9,19 +9,25 @@
     <form th:action="@{/repuestos/save}" method="post" th:object="${repuestos}">
         <div>
             <label for="txtNombre">Nombre</label>
-            <input type="text" id="txtNombre" th:field="*{nomRepuesto}" required>
+            <input type="text" id="txtNombre" th:field="*{nombreRepuesto}" required>
             <br>
             <label for="txtDescripcion">Descripcion</label>
             <input type="text" id="txtDescripcion" th:field="*{descripcion}" required>
             <br>
-            <label for="txtNumModelo">N° Modelo</label>
-            <input type="text" id="txtNumModelo" th:field="*{numModelo}" required>
+            <label for="txtNumModelo">N° Parte</label>
+            <input type="text" id="txtNumModelo" th:field="*{numeroParte}" required>
             <br>
             <label for="txtCantidad">Cantidad</label>
-            <input type="text" id="txtCantidad" th:field="*{cantidad}" required>
+            <input type="text" id="txtCantidad" th:field="*{cantidadStock}" required>
             <br>
-            <label for="txtPrecioUnitario">Precio Unitario</label>
-            <input type="text" id="txtPrecioUnitario" th:field="*{precioUnitario}" required>
+            <label for="txtPrecioCompra">Precio Compra</label>
+            <input type="text" id="txtPrecioCompra" th:field="*{precioCompra}" required>
+            <br>
+            <label for="txtPrecioVenta">Precio Venta</label>
+            <input type="text" id="txtPrecioVenta" th:field="*{precioVentaSugerido}" required>
+            <br>
+            <label for="txtFecha">Fecha</label>
+            <input type="date" id="txtFecha" th:field="*{fechaRegistro}" required>
             <br>
             <button type="submit" class="btn-registrar">Guardar</button>
             <button type="button" onclick="history.back()">Cancelar</button>

@@ -22,7 +22,7 @@ public class RepuestoController {
 
     @GetMapping("/create")
     public  String create(Model model) {
-        model.addAttribute("repuesto", new Repuesto());
+        model.addAttribute("repuestos", new Repuesto());
         return "repuestos/create";
     }
 
