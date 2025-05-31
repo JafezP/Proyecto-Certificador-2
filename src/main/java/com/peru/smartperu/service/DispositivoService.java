@@ -23,7 +23,7 @@ public class DispositivoService {
         return dispositvoRepository.findById(id).orElse(null); // Retorna null si no lo encuentra
     }
 
-    public Dispositivo save(Dispositivo dispositivo) {
-        return dispositvoRepository.save(dispositivo); // Llama al repositorio
+    public void save(Dispositivo dispositivo) {
+         dispositvoRepository.save(dispositivo); // Llama al repositorio
     }
 }
