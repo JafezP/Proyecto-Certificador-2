@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 import java.util.Date; // java.util.Date está bien, pero java.time.LocalDate/LocalDateTime es más moderno
 
 @Entity
@@ -46,6 +48,6 @@ public class Dispositivo {
     private String observacionesAdicionales; // ¡YA ESTABA BIEN!
 
     @Column(name = "fecha_registro", nullable = false)
-    private Date fechaRegistro; // ¡YA ESTABA BIEN!
+    private LocalDate fechaRegistro; // ¡YA ESTABA BIEN!
 
 }
