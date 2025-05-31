@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Perú</title>
+</head>
+<body>
+<h2>Lista de Clientes</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <td>Id Cliente</td>
+        <td>Nombre Cliente</td>
+        <td>DNI</td>
+        <td>Celular</td>
+        <td>Correo Electronico</td>
+        <td>Direción</td>
+        <td>Fecha de Registro</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.idCliente}"></td>
+        <td th:text="${cliente.nombreCompleto}"></td>
+        <td th:text="${cliente.dni}"></td>
+        <td th:text="${cliente.celular}"></td>
+        <td th:text="${cliente.correoElectronico}"></td>
+        <td th:text="${cliente.direccion}"></td>
+        <td th:text="${cliente.fechaRegistro}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
