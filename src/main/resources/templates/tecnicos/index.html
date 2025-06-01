@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Perú</title>
+</head>
+<body>
+<h2>Lista de Tecnicos</h2>
+<table border="1">
+  <thead>
+  <tr>
+    <td>Id Tecnico</td>
+    <td>Nombre Completo</td>
+    <td>DNI</td>
+    <td>Celular</td>
+    <td>Correo Electrónico</td>
+    <td>Especialidad</td>
+    <td>Fecha de Registro</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="tecnico : ${tecnicos}">
+    <td th:text="${tecnico.idTecnico}"></td>
+    <td th:text="${tecnico.nombreCompleto}"></td>
+    <td th:text="${tecnico.dni}"></td>
+    <td th:text="${tecnico.celular}"></td>
+    <td th:text="${tecnico.correoElectronico}"></td>
+    <td th:text="${tecnico.especialidad}"></td>
+    <td th:text="${tecnico.fechaRegistro}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
