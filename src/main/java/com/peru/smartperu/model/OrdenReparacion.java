@@ -51,7 +51,7 @@ public class OrdenReparacion {
     @Column(name = "solucion_aplicada", columnDefinition = "TEXT")
     private String solucionAplicada;
 
-    @Enumerated(EnumType.STRING) // Guarda el ENUM como String en la BD
+    @Convert(converter = EstadoOrdenConverter.class)
     @Column(name = "estado_orden", nullable = false)
     private EstadoOrden estadoOrden;
 
@@ -105,3 +105,4 @@ public class OrdenReparacion {
         fechaActualizacion = LocalDateTime.now();
     }
 }
+
