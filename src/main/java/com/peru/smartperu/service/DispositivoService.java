@@ -26,4 +26,8 @@ public class DispositivoService {
     public void save(Dispositivo dispositivo) {
          dispositvoRepository.save(dispositivo); // Llama al repositorio
     }
+    public boolean existsByNumeroSerieImei(String imei) {
+        return dispositvoRepository.existsByNumeroSerieImei(imei);
+    }
+
 }
