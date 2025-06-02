@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List; // Importar List
 
 @Controller
 @AllArgsConstructor
@@ -21,12 +22,39 @@ public class DispositivoController {
     private final DispositivoService dispositivoService;
     private final ClienteService clienteService;
 
-    // Mostrar lista de dispositivos
+    // Mostrar lista de dispositivos y manejar búsqueda
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("dispositivos", dispositivoService.findAll());
+    public String index(Model model,
+                        @RequestParam(value = "searchImei", required = false) String searchImei,
+                        @RequestParam(value = "searchCliente", required = false) String searchCliente,
+                        @RequestParam(value = "searchTipo", required = false) String searchTipo) {
+
+        List<Dispositivo> dispositivos;
+
+        if (searchImei != null && !searchImei.trim().isEmpty()) {
+            dispositivos = dispositivoService.searchByImei(searchImei);
+        } else if (searchCliente != null && !searchCliente.trim().isEmpty()) {
+            dispositivos = dispositivoService.searchByClienteNombre(searchCliente);
+        } else if (searchTipo != null && !searchTipo.trim().isEmpty()) {
+            dispositivos = dispositivoService.searchByTipoDispositivo(searchTipo);
+        } else {
+            dispositivos = dispositivoService.findAll(); // Si no hay parámetros de búsqueda, mostrar todos
+        }
+
+        model.addAttribute("dispositivos", dispositivos);
+        // Mantener los valores de búsqueda en el formulario
+        model.addAttribute("searchImei", searchImei);
+        model.addAttribute("searchCliente", searchCliente);
+        model.addAttribute("searchTipo", searchTipo);
+
+        // Mensaje si no hay resultados
+        if (dispositivos.isEmpty() && (searchImei != null || searchCliente != null || searchTipo != null)) {
+            model.addAttribute("noResultsMessage", "No se encontraron dispositivos que coincidan con su búsqueda.");
+        }
+
         return "dispositivos/index";
     }
+
 
     // Mostrar formulario de creación
     @GetMapping("/create")
@@ -81,5 +109,4 @@ public class DispositivoController {
             return "dispositivos/create";
         }
     }
-
 }
