@@ -21,10 +21,10 @@ public class Dispositivo {
     @Column(name = "id_dispositivo") // Es buena práctica especificar el nombre de la columna para la PK también
     private Integer idDispositivo; // CAMBIO: de id_dispositivo a idDispositivo
 
-    // Descomentar cuando tengas la entidad Cliente y quieras la relación
-    // @ManyToOne
-    // @JoinColumn(name = "id_cliente") // Nombre de la columna FK en tu tabla de DB
-    // private Cliente cliente; // Si se asocia con un objeto Cliente
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     @Column(name = "tipo_dispositivo", nullable = false)
     private String tipoDispositivo; // ¡YA ESTABA BIEN!

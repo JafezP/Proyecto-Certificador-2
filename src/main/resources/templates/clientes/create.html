@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrar Nuevo Cliente - Smartphones Perú</title>
+</head>
+<body>
+
+<h1>Registrar Nuevo Cliente</h1>
+
+<form action="/clientes/save" method="POST" th:object="${clientes}">
+    
+    <div>
+        <label for="nombreCliente">Nombre del Cliente:</label><br>
+        <input type="text" id="nombreCliente" th:field="*{nombreCompleto}" placeholder="Ingresa tus nombres"required><br><br>
+    </div>
+    
+    <div>
+        <label for="dni">DNI:</label><br>
+        <input type="text" id="dni" th:field="*{dni}" placeholder="Ingrese DNI" required><br><br>
+    </div>
+
+    <div>
+        <label for="celular">Celular:</label><br>
+        <input type="text" id="celular" th:field="*{celular}" placeholder="Ingrese número Celular" required><br><br>
+    </div>
+
+    <div>
+        <label for="correoElectronico">Correo Electronico:</label><br>
+        <input type="email" id="correoElectronico" th:field="*{correoElectronico}" placeholder="Ingrese Correo Electronico" required><br><br>
+    </div>
+
+    <div>
+        <label for="direccion">Direccion:</label><br>
+        <input type="text" id="direccion" th:field="*{direccion}" placeholder="Direción" required><br><br>
+    </div>
+
+    <div>
+        <label for="fechaRegistro">Fecha Registro:</label><br>
+        <input type="date" id="fechaRegistro" th:field="*{fechaRegistro}" placeholder="fechaRegistro" required><br><br>
+    </div>
+
+    <div>
+        <button type="submit">Registrar Cliente</button>
+        <a href="/clientes">Volver a Clientes</a>
+    </div>
+
+</form>
+
+</body>
+</html>

@@ -3,58 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Nuevo Dispositivo - Smartphones Perú</title>
+    <title>Registrar Nuevo Dispositivo - Smart Perú</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Un color de fondo suave para la página */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
+        }
+        .container {
+            max-width: 700px; /* Ancho máximo para el formulario, para que no se vea demasiado estirado */
+            margin-top: 50px; /* Margen superior para separarlo de la parte superior de la ventana */
+            margin-bottom: 50px; /* Margen inferior */
+            padding: 30px; /* Espaciado interno dentro del contenedor */
+            background-color: #ffffff; /* Fondo blanco para el formulario */
+            border-radius: 12px; /* Esquinas más redondeadas */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+        }
+        h1 {
+            text-align: center; /* Centrar el título */
+            margin-bottom: 35px; /* Más espacio debajo del título */
+            color: #343a40; /* Color de texto oscuro para el título */
+            font-weight: 600; /* Un poco más de peso para el título */
+        }
+        .form-label {
+            font-weight: bold; /* Etiquetas de campo en negrita */
+            margin-bottom: 8px; /* Pequeño espacio entre la etiqueta y el campo de entrada */
+            color: #495057; /* Color de texto para las etiquetas */
+        }
+        .form-control, .form-select {
+            border-radius: 8px; /* Bordes redondeados para los campos de entrada */
+            padding: 10px 15px; /* Mayor padding para un mejor aspecto */
+            border: 1px solid #ced4da; /* Borde estándar de Bootstrap */
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transición suave al enfocar */
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #80bdff; /* Borde azul al enfocar */
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Sombra suave al enfocar */
+        }
+        .mb-3 {
+            margin-bottom: 20px !important; /* Aumentar el espacio entre cada grupo de label/input */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Color principal de Bootstrap */
+            border-color: #007bff;
+            font-weight: 600;
+            padding: 10px 25px; /* Mayor padding para los botones */
+            border-radius: 8px; /* Bordes redondeados para los botones */
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Color secundario de Bootstrap */
+            border-color: #6c757d;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #4e555b;
+        }
+        .btn-group {
+            display: flex; /* Usar flexbox para alinear botones */
+            justify-content: space-between; /* Espaciar los botones equitativamente */
+            margin-top: 30px; /* Más espacio encima de los botones */
+        }
+    </style>
 </head>
 <body>
 
-<h1>Registrar Nuevo Dispositivo</h1>
+<div class="container">
+    <h1>Registrar Nuevo Dispositivo</h1>
 
-<form action="/dispositivos/save" method="POST" th:object="${dispositivos}">
-
-    <div>
-        <label for="tipoDispositivo">Tipo de Dispositivo:</label><br>
-        <input type="text"  id="tipoDispositivo" th:field="*{tipoDispositivo}" placeholder="Ej. Smartphone, Tablet, Laptop" required><br><br>
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
     </div>
 
-    <div>
-        <label for="marca">Marca:</label><br>
-        <input type="text"  id="marca" th:field="*{marca}" placeholder="Ej. Samsung, Apple, Xiaomi" required><br><br>
-    </div>
+    <form action="/dispositivos/save" method="POST" th:object="${dispositivo}">
 
-    <div>
-        <label for="modelo">Modelo:</label><br>
-        <input type="text" id="modelo"  th:field="*{modelo}" placeholder="Ej. Galaxy S23, iPhone 15 Pro" required><br><br>
-    </div>
+        <div class="mb-3">
+            <label for="idCliente" class="form-label">Cliente:</label>
+            <select class="form-select" id="idCliente" th:field="*{idCliente}" required>
+                <option value="">-- Seleccione un cliente --</option>
+                <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.idCliente}" th:text="${cliente.nombreCompleto + ' (' + cliente.dni + ')'}">
+                </option>
+            </select>
+            <small class="form-text text-muted">Asegúrate de registrar al cliente primero si no aparece aquí.</small>
+        </div>
 
-    <div>
-        <label for="numeroSerieImei">Número de Serie / IMEI:</label><br>
-        <input type="text"  id="numeroSerieImei"   th:field="*{numeroSerieImei}" placeholder="Ingrese el número de serie o IMEI" required><br><br>
-    </div>
+        <div class="mb-3">
+            <label for="tipoDispositivo" class="form-label">Tipo de Dispositivo:</label>
+            <input type="text" class="form-control" id="tipoDispositivo" th:field="*{tipoDispositivo}" placeholder="Ej. Smartphone, Tablet, Laptop" required>
+        </div>
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca:</label>
+            <input type="text" class="form-control" id="marca" th:field="*{marca}" placeholder="Ej. Samsung, Apple, Xiaomi" required>
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo:</label>
+            <input type="text" class="form-control" id="modelo" th:field="*{modelo}" placeholder="Ej. Galaxy S23, iPhone 15 Pro" required>
+        </div>
+        <div class="mb-3">
+            <label for="numeroSerieImei" class="form-label">Número de Serie / IMEI:</label>
+            <input type="text" class="form-control" id="numeroSerieImei" th:field="*{numeroSerieImei}" placeholder="Ingrese el número de serie o IMEI" required>
+        </div>
+        <div class="mb-3">
+            <label for="color" class="form-label">Color (Opcional):</label>
+            <input type="text" class="form-control" id="color" th:field="*{color}" placeholder="Ej. Negro, Blanco, Azul">
+        </div>
+        <div class="mb-3">
+            <label for="descripcionProblemaInicial" class="form-label">Descripción del Problema Inicial:</label>
+            <textarea class="form-control" id="descripcionProblemaInicial" th:field="*{descripcionProblemaInicial}" rows="5" placeholder="Describa el problema reportado por el cliente" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="observacionesAdicionales" class="form-label">Observaciones Adicionales (Opcional):</label>
+            <textarea class="form-control" id="observacionesAdicionales" th:field="*{observacionesAdicionales}" rows="3" placeholder="Ej. Daños estéticos, accesorios entregados"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="fechaRegistro" class="form-label">Fecha de registro:</label>
+            <input type="date" class="form-control" id="fechaRegistro" th:field="*{fechaRegistro}">
+        </div>
 
-    <div>
-        <label for="color">Color (Opcional):</label><br>
-        <input type="text"  id="color"  th:field="*{color}" placeholder="Ej. Negro, Blanco, Azul"><br><br>
-    </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Registrar Dispositivo</button>
+            <a href="/dispositivos" class="btn btn-secondary">Volver a Dispositivos</a>
+        </div>
+    </form>
+</div>
 
-    <div>
-        <label for="descripcionProblemaInicial">Descripción del Problema Inicial:</label><br>
-        <textarea  id="descripcionProblemaInicial"  th:field="*{descripcionProblemaInicial}" rows="5" placeholder="Describa el problema reportado por el cliente" required></textarea><br><br>
-    </div>
-
-    <div>
-        <label for="observacionesAdicionales">Observaciones Adicionales (Opcional):</label><br>
-        <textarea id="observacionesAdicionales" th:field="*{observacionesAdicionales}" rows="3" placeholder="Ej. Daños estéticos, accesorios entregados"></textarea><br><br>
-    </div>
-
-    <div>
-        <label for="fechaRegistro">Fecha de registro: </label><br>
-        <input type="date"  id="fechaRegistro"  th:field="*{fechaRegistro}" ><br><br>
-    </div>
-
-    <div>
-        <button type="submit">Registrar Dispositivo</button>
-        <a href="/dispositivos">Volver a Dispositivos</a> </div>
-</form>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
