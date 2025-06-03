@@ -4,6 +4,74 @@
     <meta charset="UTF-8">
     <title>Registrar Nuevo Tecnico - Smartphones Perú</title>
 </head>
+<style>
+    body {
+        background-color: #f8f9fa; /* Un color de fondo suave para la página */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
+    }
+    .container {
+        max-width: 700px; /* Ancho máximo para el formulario, para que no se vea demasiado estirado */
+        margin-top: 50px; /* Margen superior para separarlo de la parte superior de la ventana */
+        margin-bottom: 50px; /* Margen inferior */
+        padding: 30px; /* Espaciado interno dentro del contenedor */
+        background-color: #ffffff; /* Fondo blanco para el formulario */
+        border-radius: 12px; /* Esquinas más redondeadas */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+    }
+    h1 {
+        text-align: center; /* Centrar el título */
+        margin-bottom: 35px; /* Más espacio debajo del título */
+        color: #343a40; /* Color de texto oscuro para el título */
+        font-weight: 600; /* Un poco más de peso para el título */
+    }
+    .form-label {
+        font-weight: bold; /* Etiquetas de campo en negrita */
+        margin-bottom: 8px; /* Pequeño espacio entre la etiqueta y el campo de entrada */
+        color: #495057; /* Color de texto para las etiquetas */
+    }
+    .form-control, .form-select {
+        border-radius: 8px; /* Bordes redondeados para los campos de entrada */
+        padding: 10px 15px; /* Mayor padding para un mejor aspecto */
+        border: 1px solid #ced4da; /* Borde estándar de Bootstrap */
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transición suave al enfocar */
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff; /* Borde azul al enfocar */
+        box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Sombra suave al enfocar */
+    }
+    .mb-3 {
+        margin-bottom: 20px !important; /* Aumentar el espacio entre cada grupo de label/input */
+    }
+    .btn-primary {
+        background-color: #007bff; /* Color principal de Bootstrap */
+        border-color: #007bff;
+        font-weight: 600;
+        padding: 10px 25px; /* Mayor padding para los botones */
+        border-radius: 8px; /* Bordes redondeados para los botones */
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    .btn-secondary {
+        background-color: #6c757d; /* Color secundario de Bootstrap */
+        border-color: #6c757d;
+        font-weight: 600;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #4e555b;
+    }
+    .btn-group {
+        display: flex; /* Usar flexbox para alinear botones */
+        justify-content: space-between; /* Espaciar los botones equitativamente */
+        margin-top: 30px; /* Más espacio encima de los botones */
+    }
+</style>
 <body>
 <h1>Registrar Nuevo Tecnico</h1>
 <form action="/tecnicos/save" method="POST" th:object="${tecnicos}">

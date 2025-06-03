@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
     <!-- Tarjeta 1 -->
     <div class="col">
         <div class="card h-100 shadow-sm">
-            <img src="@{/img/imgIphone13.jpg}" class="card-img-top" alt="Smartphone 1">
+            <img th:src="@{/img/imgIphone13.jpg}" class="card-img-top" alt="Smartphone 1">
             <div class="card-body">
                 <h5 class="card-title">iPhone 13</h5>
                 <p class="card-text text-primary fw-bold">S/ 3,200.00</p>
@@ -26,7 +26,7 @@
     <!-- Tarjeta 2 -->
     <div class="col">
         <div class="card h-100 shadow-sm">
-            <img src="@{/img/imgSamsung25.jpg}" class="card-img-top" alt="Smartphone 2">
+            <img th:src="@{/img/imgSamsung25.jpg}" class="card-img-top" alt="Smartphone 2">
             <div class="card-body">
                 <h5 class="card-title">Samsung Galaxy S25</h5>
                 <p class="card-text text-primary fw-bold">S/ 2,899.00</p>
@@ -37,7 +37,7 @@
     <!-- Tarjeta 3 -->
     <div class="col">
         <div class="card h-100 shadow-sm">
-            <img src="@{../staticgit/img/imgXiaomi12.jpg}" class="card-img-top" alt="Smartphone 3">
+            <img th:src="@{/img/imgXiaomi12.jpg}" class="card-img-top" alt="Smartphone 3">
             <div class="card-body">
                 <h5 class="card-title">Xiaomi Redmi Note 12</h5>
                 <p class="card-text text-primary fw-bold">S/ 899.00</p>
