@@ -4,6 +4,7 @@ import com.peru.smartperu.model.Dispositivo;
 import com.peru.smartperu.repository.DispositvoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,54 +15,61 @@ public class DispositivoService {
 
     private final DispositvoRepository dispositvoRepository;
 
+    @Transactional(readOnly = true)
     public List<Dispositivo> findAll() {
         return dispositvoRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Dispositivo findById(Integer id) {
         return dispositvoRepository.findById(id).orElse(null);
     }
 
-    public void save(Dispositivo dispositivo) {
-        dispositvoRepository.save(dispositivo);
+    @Transactional
+    public Dispositivo save(Dispositivo dispositivo) {
+        return dispositvoRepository.save(dispositivo);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsByNumeroSerieImei(String imei) {
         return dispositvoRepository.existsByNumeroSerieImei(imei);
     }
 
-    // Nuevos métodos de búsqueda
+    @Transactional(readOnly = true)
     public List<Dispositivo> searchByImei(String imei) {
         return dispositvoRepository.findByNumeroSerieImeiContainingIgnoreCase(imei);
     }
 
+    @Transactional(readOnly = true)
     public List<Dispositivo> searchByClienteNombre(String nombreCliente) {
         return dispositvoRepository.findByClienteNombreCompletoContainingIgnoreCase(nombreCliente);
     }
 
+    @Transactional(readOnly = true)
     public List<Dispositivo> searchByTipoDispositivo(String tipo) {
         return dispositvoRepository.findByTipoDispositivoContainingIgnoreCase(tipo);
     }
 
-    // Método para búsqueda general por palabra clave (si decides usarlo en el controlador)
-    public List<Dispositivo> searchDispositivos(String searchText) {
-        if (searchText == null || searchText.trim().isEmpty()) {
-            return dispositvoRepository.findAll(); // Si no hay texto de búsqueda, mostrar todos
+    // Método para la HU04: Actualizar un dispositivo
+    @Transactional
+    public Dispositivo updateDispositivo(Integer id, Dispositivo updatedDispositivo) {
+        Optional<Dispositivo> existingDispositivoOpt = dispositvoRepository.findById(id);
+        if (existingDispositivoOpt.isEmpty()) {
+            return null; // O lanzar una excepción si el dispositivo no existe
         }
-        return dispositvoRepository.searchDispositivosByKeyword(searchText);
-    }
 
-    // Método para búsqueda avanzada con múltiples campos (si decides usarlo en el controlador)
-    public List<Dispositivo> searchAdvanced(String imei, String cliente, String tipo) {
-        // Lógica para construir la consulta basada en los campos no nulos/vacíos
-        // Esto puede volverse complejo, la @Query `searchDispositivosByKeyword` o
-        // la combinación de `findBy...And...` son más simples para empezar.
-        // Por simplicidad, se puede adaptar `searchDispositivosByKeyword` o usar una combinación de los métodos anteriores
-        // o construir una query dinámica con Specification/Criteria API si la complejidad aumenta.
+        Dispositivo existingDispositivo = existingDispositivoOpt.get();
 
-        // Para esta HU, usaremos el `searchDispositivosByKeyword` para una única barra de búsqueda
-        // o los métodos individuales si la UI tiene campos separados.
-        // A continuación, se implementa una búsqueda simple que combina los campos en el controlador.
-        return null; // Este método no será usado directamente con la implementación simple de la UI.
+        // Actualizar los campos que se permiten modificar en la interfaz de usuario
+        existingDispositivo.setMarca(updatedDispositivo.getMarca());
+        existingDispositivo.setTipoDispositivo(updatedDispositivo.getTipoDispositivo());
+        existingDispositivo.setNumeroSerieImei(updatedDispositivo.getNumeroSerieImei());
+        existingDispositivo.setModelo(updatedDispositivo.getModelo());
+        existingDispositivo.setColor(updatedDispositivo.getColor());
+        existingDispositivo.setObservacionesAdicionales(updatedDispositivo.getObservacionesAdicionales());
+        existingDispositivo.setDescripcionProblemaInicial(updatedDispositivo.getDescripcionProblemaInicial());
+
+
+        return dispositvoRepository.save(existingDispositivo);
     }
 }
