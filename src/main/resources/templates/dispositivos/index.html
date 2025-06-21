@@ -61,7 +61,7 @@
             background-color: #e9ecef;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,.1);\
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
         }
         .search-form .form-control {
             border-radius: 6px;
@@ -128,7 +128,8 @@
                 <th>Problema Inicial</th>
                 <th>Observaciones</th>
                 <th>Fecha Registro</th>
-                <th>Acciones</th> </tr>
+                <th>Acciones</th>
+            </tr>
             </thead>
             <tbody>
             <tr th:each="dispositivo : ${dispositivos}">
@@ -141,13 +142,15 @@
                 <td th:text="${dispositivo.color}"></td>
                 <td th:text="${dispositivo.descripcionProblemaInicial}"></td>
                 <td th:text="${dispositivo.observacionesAdicionales}"></td>
-                <td th:text="${dispositivo.fechaRegistro}"></td>
+                <td th:text="${#temporals.format(dispositivo.fechaRegistro, 'dd-MM-yyyy')}"></td>
                 <td class="action-links">
                     <a th:href="@{/dispositivos/edit/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-info">Editar</a>
+                    <a th:href="@{/dispositivos/details/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-secondary">Ver Detalle</a>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(dispositivos) && (searchImei == null && searchCliente == null && searchTipo == null)}">
-                <td colspan="11" class="text-center">No hay dispositivos registrados.</td> </tr>
+                <td colspan="11" class="text-center">No hay dispositivos registrados.</td>
+            </tr>
             </tbody>
         </table>
     </div>

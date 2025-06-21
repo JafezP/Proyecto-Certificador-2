@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Dispositivo - Smart Perú</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container {
+            max-width: 850px; margin-top: 50px; margin-bottom: 50px;
+            padding: 30px; background-color: #ffffff; border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 { text-align: center; margin-bottom: 30px; color: #343a40; font-weight: 600; }
+        .card { border-radius: 12px; margin-bottom: 30px; }
+        .card-header { background-color: #007bff; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px; font-weight: bold; padding: 15px 20px; }
+        .list-group-item strong { min-width: 180px; display: inline-block; }
+        .reparacion-item {
+            border-left: 5px solid;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fefefe;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease-in-out;
+        }
+        .reparacion-item:hover {
+            transform: translateY(-3px);
+        }
+        /* Colores para el borde de la tarjeta de reparación según el estado */
+        .reparacion-item.PENDIENTE_DIAGNOSTICO { border-left-color: #6c757d; } /* Gris */
+        .reparacion-item.ASIGNADA { border-left-color: #007bff; } /* Azul */
+        .reparacion-item.EN_DIAGNOSTICO { border-left-color: #ffc107; } /* Amarillo */
+        .reparacion-item.EN_REPARACION { border-left-color: #17a2b8; } /* Celeste */
+        .reparacion-item.ESPERANDO_REPUESTO { border-left-color: #fd7e14; } /* Naranja */
+        .reparacion-item.REPARADO { border-left-color: #28a745; } /* Verde */
+        .reparacion-item.LISTA_PARA_ENTREGA { border-left-color: #6f42c1; } /* Morado */
+        .reparacion-item.ENTREGADO { border-left-color: #20c997; } /* Verde azulado */
+        .reparacion-item.CANCELADA { border-left-color: #dc3545; } /* Rojo */
+
+        .reparacion-item p { margin-bottom: 5px; }
+        .reparacion-item p:last-child { margin-bottom: 0; }
+        .btn-group-actions {
+            margin-top: 30px; display: flex; justify-content: center; gap: 15px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Detalle del Dispositivo</h1>
+
+    <div class="card">
+        <div class="card-header">
+            Información General del Dispositivo
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>ID Dispositivo:</strong> <span th:text="${dispositivo.idDispositivo}"></span></li>
+                <li class="list-group-item"><strong>Cliente:</strong> <span th:text="${dispositivo.cliente != null ? dispositivo.cliente.nombreCompleto + ' (DNI: ' + dispositivo.cliente.dni + ')' : 'N/A'}"></span></li>
+                <li class="list-group-item"><strong>Tipo de Dispositivo:</strong> <span th:text="${dispositivo.tipoDispositivo}"></span></li>
+                <li class="list-group-item"><strong>Marca:</strong> <span th:text="${dispositivo.marca}"></span></li>
+                <li class="list-group-item"><strong>Modelo:</strong> <span th:text="${dispositivo.modelo}"></span></li>
+                <li class="list-group-item"><strong>IMEI/Serie:</strong> <span th:text="${dispositivo.numeroSerieImei}"></span></li>
+                <li class="list-group-item"><strong>Color:</strong> <span th:text="${dispositivo.color ?: 'N/A'}"></span></li>
+                <li class="list-group-item"><strong>Descripción Problema Inicial:</strong> <span th:text="${dispositivo.descripcionProblemaInicial}"></span></li>
+                <li class="list-group-item"><strong>Observaciones Adicionales:</strong> <span th:text="${dispositivo.observacionesAdicionales ?: 'N/A'}"></span></li>
+                <li class="list-group-item"><strong>Fecha Registro:</strong> <span th:text="${#temporals.format(dispositivo.fechaRegistro, 'dd-MM-yyyy')}"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="card mt-5">
+        <div class="card-header">
+            Órdenes de Reparación Asociadas
+        </div>
+        <div class="card-body">
+            <h3 class="section-title">Órdenes Activas/Pendientes</h3>
+            <div th:if="${#lists.isEmpty(dispositivo.ordenesReparacion.?[estadoOrden.name() != 'ENTREGADO' and estadoOrden.name() != 'CANCELADA'])}" class="alert alert-info" role="alert">
+                No hay órdenes de reparación activas o pendientes para este dispositivo.
+            </div>
+            <div th:each="orden : ${dispositivo.ordenesReparacion.?[estadoOrden.name() != 'ENTREGADO' and estadoOrden.name() != 'CANCELADA']}"
+                 th:classappend="${orden.estadoOrden.name()}" class="reparacion-item">
+                <p><strong>ID Orden:</strong> <span th:text="${orden.idOrden}"></span></p>
+                <p><strong>Técnico:</strong> <span th:text="${orden.tecnico != null ? orden.tecnico.nombreCompleto : 'Sin Asignar'}"></span></p>
+                <p><strong>Estado Orden:</strong> <span th:text="${orden.estadoOrden.displayValue}"></span></p>
+                <p><strong>Fecha Creación:</strong> <span th:text="${#temporals.format(orden.fechaCreacion, 'dd-MM-yyyy HH:mm')}"></span></p>
+                <p><strong>Última Actualización:</strong> <span th:text="${#temporals.format(orden.fechaActualizacion, 'dd-MM-yyyy HH:mm')}"></span></p>
+                <p><strong>Problema:</strong> <span th:text="${orden.descripcionProblema}"></span></p>
+                <p><strong>Diagnóstico:</strong> <span th:text="${orden.diagnosticoTecnico ?: 'N/A'}"></span></p>
+                <p><strong>Costo Estimado:</strong> <span th:text="${orden.costoEstimado != null ? '$' + #numbers.formatDecimal(orden.costoEstimado, 1, 'COMMA', 2, 'POINT') : 'N/A'}"></span></p>
+                <a th:href="@{/ordenes/details/{id}(id=${orden.idOrden})}" class="btn btn-sm btn-outline-primary mt-2">Ver Detalle de Orden</a>
+            </div>
+
+            <h3 class="section-title mt-4">Historial de Órdenes (Entregadas/Canceladas)</h3>
+             <div th:if="${#lists.isEmpty(dispositivo.ordenesReparacion.?[estadoOrden.name() == 'ENTREGADO' or estadoOrden.name() == 'CANCELADA'])}" class="alert alert-info" role="alert">
+                 No hay historial de órdenes de reparación entregadas o canceladas para este dispositivo.
+             </div>
+             <div th:each="orden : ${dispositivo.ordenesReparacion.?[estadoOrden.name() == 'ENTREGADO' or estadoOrden.name() == 'CANCELADA']}"
+                  th:classappend="${orden.estadoOrden.name()}" class="reparacion-item">
+                 <p><strong>ID Orden:</strong> <span th:text="${orden.idOrden}"></span></p>
+                 <p><strong>Técnico:</strong> <span th:text="${orden.tecnico != null ? orden.tecnico.nombreCompleto : 'N/A'}"></span></p>
+                 <p><strong>Estado Orden:</strong> <span th:text="${orden.estadoOrden.displayValue}"></span></p>
+                 <p><strong>Fecha Creación:</strong> <span th:text="${#temporals.format(orden.fechaCreacion, 'dd-MM-yyyy HH:mm')}"></span></p>
+                 <p><strong>Fecha Entrega/Cancelación:</strong> <span th:text="${#temporals.format(orden.fechaActualizacion, 'dd-MM-yyyy HH:mm')}"></span></p>
+                 <p><strong>Solución:</strong> <span th:text="${orden.solucionAplicada ?: 'N/A'}"></span></p>
+                 <p><strong>Costo Final:</strong> <span th:text="${orden.costoFinal != null ? '$' + #numbers.formatDecimal(orden.costoFinal, 1, 'COMMA', 2, 'POINT') : 'N/A'}"></span></p>
+                 <a th:href="@{/ordenes/details/{id}(id=${orden.idOrden})}" class="btn btn-sm btn-outline-secondary mt-2">Ver Detalle de Orden</a>
+             </div>
+         </div>
+     </div>-->
+
+     <div class="btn-group-actions">
+         <a th:href="@{/dispositivos}" class="btn btn-secondary">Volver a la Lista</a>
+         <a th:href="@{/dispositivos/edit/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-primary">Editar Dispositivo</a>
+     </div>
+ </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+ </body>
+ </html>

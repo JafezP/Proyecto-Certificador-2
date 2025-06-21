@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date; // java.util.Date está bien, pero java.time.LocalDate/LocalDateTime es más moderno
+import java.util.List; // <<< AÑADE ESTE IMPORT
 
 @Entity
 @Getter
@@ -18,36 +18,41 @@ import java.util.Date; // java.util.Date está bien, pero java.time.LocalDate/Lo
 public class Dispositivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_dispositivo") // Es buena práctica especificar el nombre de la columna para la PK también
-    private Integer idDispositivo; // CAMBIO: de id_dispositivo a idDispositivo
+    @Column(name = "id_dispositivo")
+    private Integer idDispositivo;
 
-
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @ManyToOne(fetch = FetchType.LAZY) // Se añade FetchType.LAZY para una mejor performance.
+    @JoinColumn(name = "id_cliente") // Asegúrate de que esta columna sea nullable=false si siempre debe tener un cliente
     private Cliente cliente;
 
     @Column(name = "tipo_dispositivo", nullable = false)
-    private String tipoDispositivo; // ¡YA ESTABA BIEN!
+    private String tipoDispositivo;
 
     @Column(name = "marca", nullable = false)
-    private String marca; // ¡YA ESTABA BIEN!
+    private String marca;
 
     @Column(name = "modelo", nullable = false)
-    private String modelo; // ¡YA ESTABA BIEN!
+    private String modelo;
 
     @Column(name = "numero_serie_imei", nullable = false)
-    private String numeroSerieImei; // CAMBIO CLAVE: de numeroSerie_imei a numeroSerieImei (sin guion bajo)
+    private String numeroSerieImei;
 
-    @Column(name = "color", nullable = false)
-    private String color; // ¡YA ESTABA BIEN!
+    @Column(name = "color", nullable = false) // Según tu código original, este es nullable=false
+    private String color;
 
     @Column(name = "descripcion_problema_inicial", nullable = false)
-    private String descripcionProblemaInicial; // ¡YA ESTABA BIEN!
+    private String descripcionProblemaInicial;
 
     @Column(name = "observaciones_adicionales")
-    private String observacionesAdicionales; // ¡YA ESTABA BIEN!
+    private String observacionesAdicionales;
 
     @Column(name = "fecha_registro", nullable = false)
-    private LocalDate fechaRegistro; // ¡YA ESTABA BIEN!
+    private LocalDate fechaRegistro;
 
+    // --- CAMBIO PARA LA HU05: RELACIÓN CON ORDENES DE REPARACIÓN ---
+    @OneToMany(mappedBy = "dispositivo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrdenReparacion> ordenesReparacion;
+    // 'mappedBy' indica que la relación es bidireccional y el campo 'dispositivo' en OrdenReparacion es el dueño.
+    // 'fetch = FetchType.LAZY' significa que las órdenes no se cargarán hasta que se acceda a ellas.
+    // 'cascade = CascadeType.ALL' significa que si se elimina un Dispositivo, sus OrdenReparacion también se eliminarán.
 }
