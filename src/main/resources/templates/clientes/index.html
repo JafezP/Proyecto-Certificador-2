@@ -95,7 +95,7 @@
             </thead>
             <tbody>
             <tr th:each="cliente : ${clientes}">
-                <td th:text="${cliente.idCliente}"></td>
+                <!--<td th:text="${cliente.idCliente}"></td>-->
                 <td th:text="${cliente.nombreCompleto}"></td>
                 <td th:text="${cliente.dni}"></td>
                 <td th:text="${cliente.celular}"></td>
@@ -104,7 +104,7 @@
                 <td th:text="${cliente.fechaRegistro}"></td>
                 <td class="action-links">
                     <!--<a th:href="@{/clientes/edit/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-info">Editar</a>-->
-
+                    <a th:href="@{/clientes/details/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-secondary">Ver Detalles</a>
                     <form th:action="@{/clientes/delete/{id}(id=${cliente.idCliente})}" method="post" class="form-delete"
                           onsubmit="return confirm('¿Estás seguro de que quieres eliminar este cliente? Esta acción podría no ser posible si tiene órdenes o compras asociadas.');">
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

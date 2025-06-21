@@ -47,4 +47,14 @@ public class ClienteController {
         return "redirect:/clientes";
     }
 
+    @GetMapping("/details/{id}")
+    public String showClienteDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+        Cliente cliente = clienteService.findById(id);
+        if (cliente == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Cliente no encontrado.");
+            return "redirect:/clientes";
+        }
+        model.addAttribute("cliente", cliente);
+        return "clientes/details"; // Esta es la nueva plantilla HTML
+    }
 }
