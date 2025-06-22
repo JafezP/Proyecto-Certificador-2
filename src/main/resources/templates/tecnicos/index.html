@@ -16,7 +16,7 @@
                     <!-- Título -->
                     <div class="row">
                         <div class="col-12 text-center mb-4">
-                            <h1 class="h2 fw-bold text-dark">Lista de Técnicos Registrados</h1>
+                            <h1 class="h2 fw-bold text-dark fs-1">Lista de Técnicos Registrados</h1>
                         </div>
                     </div>
 
@@ -28,10 +28,13 @@
                         </div>
                     </div>
 
-                    <!-- Subtítulo -->
+                    <!-- Alerta Success -->
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <p class="text-muted mb-0">Listado de todos los técnicos registrados</p>
+                            <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                                <span th:text="${success}"></span>
+<!--                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+                            </div>
                         </div>
                     </div>
 
@@ -49,6 +52,7 @@
                                         <th scope="col" class="fw-bold">Correo Electrónico</th>
                                         <th scope="col" class="fw-bold">Especialidad</th>
                                         <th scope="col" class="fw-bold">Fecha de Registro</th>
+                                        <th scope="col" class="fw-bold">Editar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +64,9 @@
                                         <td th:text="${tecnico.correoElectronico}"></td>
                                         <td th:text="${tecnico.especialidad}"></td>
                                         <td th:text="${tecnico.fechaRegistro}"></td>
+                                        <td>
+                                            <a th:href="@{/tecnicos/edit/{id}(id=${tecnico.idTecnico})}" class="btn btn-secondary btn-sm">Editar</a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -5,14 +5,12 @@ import com.peru.smartperu.service.TecnicoService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("tecnicos")
+@RequestMapping("/tecnicos")
 public class TecnicoController {
 
     private final TecnicoService tecnicoService;
@@ -30,8 +28,15 @@ public class TecnicoController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("tecnicos") Tecnico tecnico) {
+    public String save(@ModelAttribute("tecnicos") Tecnico tecnico, RedirectAttributes redirectAttributes) {
         tecnicoService.save(tecnico);
+        redirectAttributes.addFlashAttribute("success", "¡Técnico guardado correctamente!");
         return "redirect:/tecnicos";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable int id) {
+        model.addAttribute("tecnico", tecnicoService.findById(id));
+        return "tecnicos/edit";
     }
 }
