@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,4 +38,12 @@ public class Tecnico {
 
     @Column(name = "fecha_registro", nullable = false)
     private LocalDate fechaRegistro;
+
+    // se agrego un nuevo campo
+    @Column(name = "activo", nullable = false)
+    private Boolean activo = true;
+
+    //le dice a JPA que esta entidad tiene una relacion con OrdenReparacion
+    @OneToMany(mappedBy = "tecnico")
+    private List<OrdenReparacion> ordenes;
 }

@@ -13,8 +13,9 @@ public class TecnicoService {
 
     private final TecnicoRepository tecnicoRepository;
 
+    // Encuentra todos los tecnicos con estado activo
     public List<Tecnico> findAll() {
-        return tecnicoRepository.findAll();
+        return tecnicoRepository.findByActivoTrue();
     }
 
     public Tecnico findById(Integer id) {

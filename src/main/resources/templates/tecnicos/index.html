@@ -28,12 +28,35 @@
                         </div>
                     </div>
 
-                    <!-- Alerta Success -->
+                    <!-- Alerta Success Save -->
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                                <span th:text="${success}"></span>
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+                            <div th:if="${successSave}" class="alert alert-success alert-dismissible fade show mt-3"
+                                 role="alert">
+                                <span th:text="${successSave}"></span>
+                                <!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alerta Success Delete -->
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div th:if="${successDel}" class="alert alert-success alert-dismissible fade show mt-3"
+                                 role="alert">
+                                <span th:text="${successDel}"></span>
+                                <!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alerta Error Delete -->
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div th:if="${errorDel}" class="alert alert-danger alert-dismissible fade show mt-3"
+                                 role="alert">
+                                <span th:text="${errorDel}"></span>
+                                <!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>-->
                             </div>
                         </div>
                     </div>
@@ -45,7 +68,7 @@
                                 <table class="table table-striped table-hover table-bordered bg-white">
                                     <thead class="table-primary">
                                     <tr class="text-nowrap text-center">
-                                        <th scope="col" class="fw-bold">ID Técnico</th>
+                                        <th scope="col" class="fw-bold">ID</th>
                                         <th scope="col" class="fw-bold">Nombre Completo</th>
                                         <th scope="col" class="fw-bold">DNI</th>
                                         <th scope="col" class="fw-bold">Celular</th>
@@ -53,6 +76,7 @@
                                         <th scope="col" class="fw-bold">Especialidad</th>
                                         <th scope="col" class="fw-bold">Fecha de Registro</th>
                                         <th scope="col" class="fw-bold">Editar</th>
+                                        <th scope="col" class="fw-bold">Eliminar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -63,9 +87,16 @@
                                         <td th:text="${tecnico.celular}"></td>
                                         <td th:text="${tecnico.correoElectronico}"></td>
                                         <td th:text="${tecnico.especialidad}"></td>
-                                        <td th:text="${tecnico.fechaRegistro}"></td>
-                                        <td>
-                                            <a th:href="@{/tecnicos/edit/{id}(id=${tecnico.idTecnico})}" class="btn btn-secondary btn-sm">Editar</a>
+                                        <td class="text-center" th:text="${tecnico.fechaRegistro}"></td>
+                                        <td class="text-center">
+                                            <a th:href="@{/tecnicos/edit/{id}(id=${tecnico.idTecnico})}"
+                                               class="btn btn-secondary btn-sm">Editar</a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a th:href="@{/tecnicos/delete/{id}(id=${tecnico.idTecnico})}"
+                                               class="btn btn-danger btn-sm"
+                                               onclick="return confirm('¿Estás seguro de que deseas eliminar este técnico?')">
+                                                Eliminar</a>
                                         </td>
                                     </tr>
                                     </tbody>

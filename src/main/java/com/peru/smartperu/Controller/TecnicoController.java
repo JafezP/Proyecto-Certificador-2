@@ -1,5 +1,6 @@
 package com.peru.smartperu.Controller;
 
+import com.peru.smartperu.model.OrdenReparacion;
 import com.peru.smartperu.model.Tecnico;
 import com.peru.smartperu.service.TecnicoService;
 import lombok.AllArgsConstructor;
@@ -15,28 +16,56 @@ public class TecnicoController {
 
     private final TecnicoService tecnicoService;
 
+    // Lista todos los tecnicos que esten activos
     @GetMapping
     public String index(Model model) {
         model.addAttribute("tecnicos", tecnicoService.findAll());
         return "tecnicos/index";
     }
 
+    // Muestra formulario para crear un nuevo tecnico
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("tecnicos", new Tecnico());
         return "tecnicos/create";
     }
 
+    // Guarda un nuevo tecnico
     @PostMapping("/save")
     public String save(@ModelAttribute("tecnicos") Tecnico tecnico, RedirectAttributes redirectAttributes) {
         tecnicoService.save(tecnico);
-        redirectAttributes.addFlashAttribute("success", "¡Técnico guardado correctamente!");
+
+        redirectAttributes.addFlashAttribute("successSave", "¡Técnico guardado correctamente!");
         return "redirect:/tecnicos";
     }
 
+    // Actualiza informacion de un tecnico
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable int id) {
         model.addAttribute("tecnico", tecnicoService.findById(id));
         return "tecnicos/edit";
+    }
+
+    // Actualiza el estado de un tecnico (lo elimina de la lista, no de la base de datos)
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Tecnico tecnico = tecnicoService.findById(id);
+        boolean tieneOrdenesActivas = tecnico.getOrdenes().stream()
+                .anyMatch(orden ->
+                        orden.getEstadoOrden() == OrdenReparacion.EstadoOrden.ASIGNADA ||
+                                orden.getEstadoOrden() == OrdenReparacion.EstadoOrden.EN_REPARACION ||
+                                orden.getEstadoOrden() == OrdenReparacion.EstadoOrden.ESPERANDO_REPUESTO
+                );
+
+        if (tieneOrdenesActivas) {
+            redirectAttributes.addFlashAttribute("errorDel", "No se puede eliminar: el técnico tiene órdenes activas.");
+            return "redirect:/tecnicos";
+        }
+
+        tecnico.setActivo(false);
+        tecnicoService.save(tecnico);
+
+        redirectAttributes.addFlashAttribute("successDel", "Técnico eliminado de la lista.");
+        return "redirect:/tecnicos";
     }
 }
