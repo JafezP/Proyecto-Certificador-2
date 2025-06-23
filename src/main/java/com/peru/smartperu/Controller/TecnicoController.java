@@ -68,4 +68,13 @@ public class TecnicoController {
         redirectAttributes.addFlashAttribute("successDel", "Técnico eliminado de la lista.");
         return "redirect:/tecnicos";
     }
+
+    // Muestra el perfil de un tecnico
+    @GetMapping("/profile/{id}")
+    public String perfilTecnico(Model model, @PathVariable Integer id) {
+        Tecnico tecnico = tecnicoService.findById(id);
+        model.addAttribute("tecnico", tecnico);
+        model.addAttribute("ordenes", tecnico.getOrdenes());
+        return "tecnicos/profile";
+    }
 }
