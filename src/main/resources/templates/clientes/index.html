@@ -70,6 +70,16 @@
         <a href="/clientes/create" class="btn btn-primary">Registrar Nuevo Cliente</a>
     </div>
 
+    <div class="row">
+        <div class="col-12 mb-3">
+            <div th:if="${successSave}" class="alert alert-success alert-dismissible fade show mt-3"
+                 role="alert">
+                <span th:text="${successSave}"></span>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+            </div>
+        </div>
+    </div>
+
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <p th:text="${successMessage}"></p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -90,21 +100,29 @@
                 <th>Email</th>
                 <th>Dirección</th>
                 <th>Fecha de registro</th>
-                <th>Acciones</th>
+                <th>Editar</th>
+                <th>Perfil</th>
+                <th>Eliminar</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="cliente : ${clientes}">
-                <!--<td th:text="${cliente.idCliente}"></td>-->
+                <td th:text="${cliente.idCliente}"></td>
                 <td th:text="${cliente.nombreCompleto}"></td>
                 <td th:text="${cliente.dni}"></td>
                 <td th:text="${cliente.celular}"></td>
                 <td th:text="${cliente.correoElectronico}"></td>
                 <td th:text="${cliente.direccion}"></td>
                 <td th:text="${cliente.fechaRegistro}"></td>
+                <td class="text-center">
+                    <a th:href="@{/clientes/edit/{id}(id=${cliente.idCliente})}"
+                       class="btn btn-secondary btn-sm">Editar</a>
+                </td>
+                <td>
+                    <a th:href="@{/clientes/details/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-info">Ver Perfil</a>
+                </td>
                 <td class="action-links">
                     <!--<a th:href="@{/clientes/edit/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-info">Editar</a>-->
-                    <a th:href="@{/clientes/details/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-secondary">Ver Detalles</a>
                     <form th:action="@{/clientes/delete/{id}(id=${cliente.idCliente})}" method="post" class="form-delete"
                           onsubmit="return confirm('¿Estás seguro de que quieres eliminar este cliente? Esta acción podría no ser posible si tiene órdenes o compras asociadas.');">
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

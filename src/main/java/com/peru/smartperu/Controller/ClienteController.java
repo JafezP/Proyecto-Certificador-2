@@ -30,10 +30,11 @@ public class ClienteController {
     }
 
     @PostMapping("/save")
-    public String save (@ModelAttribute("clientes") Cliente cliente){
+    public String save (@ModelAttribute("clientes") Cliente cliente, RedirectAttributes redirectAttributes){
         clienteService.save(cliente);
-        return "redirect:/clientes";
 
+        redirectAttributes.addFlashAttribute("successSave", "¡Cliente guardado correctamente!");
+        return "redirect:/clientes";
     }
 
     @PostMapping("/delete/{id}") // Usar POST para acciones que modifican datos
@@ -56,5 +57,12 @@ public class ClienteController {
         }
         model.addAttribute("cliente", cliente);
         return "clientes/details"; // Esta es la nueva plantilla HTML
+    }
+
+    // Actualiza informacion de un cliente
+    @GetMapping("/edit/{id}")
+    public String editCliente(Model model, @PathVariable int id) {
+        model.addAttribute("cliente", clienteService.findById(id));
+        return "clientes/edit";
     }
 }
