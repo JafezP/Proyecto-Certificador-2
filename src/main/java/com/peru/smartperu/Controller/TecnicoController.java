@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/tecnicos")
@@ -33,9 +35,10 @@ public class TecnicoController {
     // Guarda un nuevo tecnico
     @PostMapping("/save")
     public String save(@ModelAttribute("tecnicos") Tecnico tecnico, RedirectAttributes redirectAttributes) {
+        tecnico.setFechaRegistro(LocalDate.now());
         tecnicoService.save(tecnico);
 
-        redirectAttributes.addFlashAttribute("successSave", "¡Técnico guardado correctamente!");
+        redirectAttributes.addFlashAttribute("successSave", "Los datos del técnico han sido guardados correctamente.");
         return "redirect:/tecnicos";
     }
 
@@ -58,14 +61,14 @@ public class TecnicoController {
                 );
 
         if (tieneOrdenesActivas) {
-            redirectAttributes.addFlashAttribute("errorDel", "No se puede eliminar: el técnico tiene órdenes activas.");
+            redirectAttributes.addFlashAttribute("errorDel", "El técnico tiene órdenes activas.");
             return "redirect:/tecnicos";
         }
 
         tecnico.setActivo(false);
         tecnicoService.save(tecnico);
 
-        redirectAttributes.addFlashAttribute("successDel", "Técnico eliminado de la lista.");
+        redirectAttributes.addFlashAttribute("successDel", "Los datos del técnico han sido eliminados de la lista correctamente.");
         return "redirect:/tecnicos";
     }
 
