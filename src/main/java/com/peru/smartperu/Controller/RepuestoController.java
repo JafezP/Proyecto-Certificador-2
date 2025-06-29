@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
 
 @Controller
 @AllArgsConstructor
@@ -27,8 +30,18 @@ public class RepuestoController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("repuestos") Repuesto repuesto) {
+    public String save(@ModelAttribute("repuestos") Repuesto repuesto, RedirectAttributes redirectAttributes) {
+        repuesto.setFechaRegistro(LocalDate.now());
         repuestoService.save(repuesto);
+
+        redirectAttributes.addFlashAttribute("successSave", "Los datos del repuesto han sido guardados correctamente.");
         return "redirect:/repuestos";
+    }
+
+    // Actualiza informacion de un repuesto
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable int id) {
+        model.addAttribute("repuesto", repuestoService.findById(id));
+        return "repuestos/edit";
     }
 }

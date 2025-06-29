@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("clientes")
@@ -31,6 +33,7 @@ public class ClienteController {
 
     @PostMapping("/save")
     public String save (@ModelAttribute("clientes") Cliente cliente, RedirectAttributes redirectAttributes){
+        cliente.setFechaRegistro(LocalDate.now());
         clienteService.save(cliente);
 
         redirectAttributes.addFlashAttribute("successSave", "¡Cliente guardado correctamente!");
