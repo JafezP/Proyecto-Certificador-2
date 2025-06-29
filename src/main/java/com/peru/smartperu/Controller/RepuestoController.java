@@ -1,6 +1,7 @@
 package com.peru.smartperu.Controller;
 
 import com.peru.smartperu.model.Repuesto;
+import com.peru.smartperu.model.Tecnico;
 import com.peru.smartperu.service.RepuestoService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -43,5 +44,14 @@ public class RepuestoController {
     public String edit(Model model, @PathVariable int id) {
         model.addAttribute("repuesto", repuestoService.findById(id));
         return "repuestos/edit";
+    }
+
+    // Muestra informacion de un repuesto
+    @GetMapping("/profile/{id}")
+    public String infoRepuesto(Model model, @PathVariable Integer id) {
+        Repuesto repuesto = repuestoService.findById(id);
+        model.addAttribute("repuesto", repuesto);
+//        model.addAttribute("ordenes", tecnico.getOrdenes());
+        return "repuestos/profile";
     }
 }

@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">
+                                    <td>
                                         <small class="text-muted" th:text="${repuesto.descripcion}"></small>
                                     </td>
                                     <td class="text-center">
@@ -173,15 +173,13 @@
                                         <span class="badge fs-6 bg-info text-white"
                                               th:text="${repuesto.cantidadStock}"></span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-end">
                                         <span class="text-success fw-bold">
-                                            <i class="bi bi-currency-dollar me-1"></i>
                                             <span th:text="${repuesto.precioCompra}"></span>
                                         </span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-end">
                                         <span class="text-warning fw-bold">
-                                            <i class="bi bi-currency-dollar me-1"></i>
                                             <span th:text="${repuesto.precioVentaSugerido}"></span>
                                         </span>
                                     </td>

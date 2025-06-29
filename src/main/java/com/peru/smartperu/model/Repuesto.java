@@ -41,4 +41,6 @@ public class Repuesto {
 
     @Column(name = "fecha_registro", nullable = false)
     private LocalDate fechaRegistro;
+
+
 }

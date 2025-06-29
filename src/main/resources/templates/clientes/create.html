@@ -197,29 +197,31 @@
     </div>
 </div>
 
-<script>
-    // Script para vista previa en tiempo real
-    document.addEventListener('DOMContentLoaded', function() {
-        const fields = {
-            'nombreCompleto': 'preview-nombre',
-            'dni': 'preview-dni',
-            'celular': 'preview-celular',
-            'correoElectronico': 'preview-email',
-            'direccion': 'preview-direccion',
-        };
+<!--Futuras mejoras-->
 
-        Object.keys(fields).forEach(fieldId => {
-            const input = document.getElementById(fieldId);
-            const preview = document.getElementById(fields[fieldId]);
+<!--<script>-->
+<!--    // Script para vista previa en tiempo real-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        const fields = {-->
+<!--            'nombreCompleto': 'preview-nombre',-->
+<!--            'dni': 'preview-dni',-->
+<!--            'celular': 'preview-celular',-->
+<!--            'correoElectronico': 'preview-email',-->
+<!--            'direccion': 'preview-direccion',-->
+<!--        };-->
 
-            if (input && preview) {
-                input.addEventListener('input', function() {
-                    preview.textContent = this.value || '-';
-                });
-            }
-        });
-    });
-</script>
+<!--        Object.keys(fields).forEach(fieldId => {-->
+<!--            const input = document.getElementById(fieldId);-->
+<!--            const preview = document.getElementById(fields[fieldId]);-->
+
+<!--            if (input && preview) {-->
+<!--                input.addEventListener('input', function() {-->
+<!--                    preview.textContent = this.value || '-';-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 </body>
 
