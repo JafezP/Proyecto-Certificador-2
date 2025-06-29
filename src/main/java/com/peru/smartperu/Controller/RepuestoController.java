@@ -54,4 +54,15 @@ public class RepuestoController {
 //        model.addAttribute("ordenes", tecnico.getOrdenes());
         return "repuestos/profile";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            repuestoService.deleteById(id); // Llama al servicio para eliminar
+            redirectAttributes.addFlashAttribute("successDel", "El repuesto ha sido eliminado correctamente del inventario.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorDel", "No se pudo eliminar el repuesto. Ha ocurrido un error.");
+        }
+        return "redirect:/repuestos";
+    }
 }

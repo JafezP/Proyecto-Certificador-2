@@ -24,4 +24,8 @@ public class RepuestoService {
     public void save(Repuesto repuesto) {
         repuestoRepository.save(repuesto);
     }
+
+    public void deleteById(Integer id) {
+        repuestoRepository.deleteById(id);
+    }
 }
