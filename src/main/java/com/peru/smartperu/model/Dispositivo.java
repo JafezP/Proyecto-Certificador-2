@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List; // <<< AÑADE ESTE IMPORT
+import java.util.Comparator; // Importar Comparator
+import java.util.List;
+import java.util.Optional; // Importar Optional
 
 @Entity
 @Getter
@@ -16,43 +18,50 @@ import java.util.List; // <<< AÑADE ESTE IMPORT
 @NoArgsConstructor
 @Table(name = "dispositivos")
 public class Dispositivo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dispositivo")
     private Integer idDispositivo;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Se añade FetchType.LAZY para una mejor performance.
-    @JoinColumn(name = "id_cliente") // Asegúrate de que esta columna sea nullable=false si siempre debe tener un cliente
+    @ManyToOne(fetch = FetchType.LAZY) // Usar LAZY para evitar carga innecesaria si no se necesita el cliente
+    @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @Column(name = "tipo_dispositivo", nullable = false)
+    @Column(name = "tipo_dispositivo", length = 50, nullable = false)
     private String tipoDispositivo;
 
-    @Column(name = "marca", nullable = false)
+    @Column(name = "marca", length = 50, nullable = false)
     private String marca;
 
-    @Column(name = "modelo", nullable = false)
+    @Column(name = "modelo", length = 50, nullable = false)
     private String modelo;
 
-    @Column(name = "numero_serie_imei", nullable = false)
+    @Column(name = "numero_serie_imei", length = 100, unique = true, nullable = false)
     private String numeroSerieImei;
 
-    @Column(name = "color", nullable = false) // Según tu código original, este es nullable=false
+    @Column(name = "color", length = 30)
     private String color;
 
-    @Column(name = "descripcion_problema_inicial", nullable = false)
+    @Column(name = "descripcion_problema_inicial", columnDefinition = "TEXT")
     private String descripcionProblemaInicial;
 
-    @Column(name = "observaciones_adicionales")
+    @Column(name = "observaciones_adicionales", columnDefinition = "TEXT")
     private String observacionesAdicionales;
 
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fecha_registro", nullable = false, updatable = false)
     private LocalDate fechaRegistro;
 
-    // --- CAMBIO PARA LA HU05: RELACIÓN CON ORDENES DE REPARACIÓN ---
-    @OneToMany(mappedBy = "dispositivo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dispositivo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrdenReparacion> ordenesReparacion;
-    // 'mappedBy' indica que la relación es bidireccional y el campo 'dispositivo' en OrdenReparacion es el dueño.
-    // 'fetch = FetchType.LAZY' significa que las órdenes no se cargarán hasta que se acceda a ellas.
-    // 'cascade = CascadeType.ALL' significa que si se elimina un Dispositivo, sus OrdenReparacion también se eliminarán.
+
+    // --- NUEVO MÉTODO HELPER ---
+    public Optional<OrdenReparacion> getLastOrdenReparacion() {
+        if (this.ordenesReparacion == null || this.ordenesReparacion.isEmpty()) {
+            return Optional.empty();
+        }
+        // Ordenar por fechaCreacion de forma descendente y tomar el primero
+        return this.ordenesReparacion.stream()
+                .max(Comparator.comparing(OrdenReparacion::getFechaCreacion));
+    }
 }

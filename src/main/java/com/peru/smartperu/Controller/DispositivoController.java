@@ -3,17 +3,22 @@ package com.peru.smartperu.Controller;
 import com.peru.smartperu.dto.DispositivoDto;
 import com.peru.smartperu.model.Cliente;
 import com.peru.smartperu.model.Dispositivo;
-import com.peru.smartperu.model.OrdenReparacion; // <<< AÑADE ESTE IMPORT para usarlo en la vista si es necesario
+import com.peru.smartperu.model.OrdenReparacion; // AÑADIDO: Importar para acceder al enum EstadoOrden
 import com.peru.smartperu.service.ClienteService;
 import com.peru.smartperu.service.DispositivoService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.ArrayList; // AÑADIDO: Para crear la lista de enums
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors; // AÑADIDO: Para usar en la conversión de estados
 
 @Controller
 @AllArgsConstructor
@@ -88,7 +93,6 @@ public class DispositivoController {
             dispositivo.setColor(dto.getColor());
             dispositivo.setDescripcionProblemaInicial(dto.getDescripcionProblemaInicial());
             dispositivo.setObservacionesAdicionales(dto.getObservacionesAdicionales());
-            // Asegúrate de establecer la fecha de registro si es nula en el DTO
             dispositivo.setFechaRegistro(dto.getFechaRegistro() != null ? dto.getFechaRegistro() : LocalDate.now());
 
             dispositivoService.save(dispositivo);
@@ -103,7 +107,6 @@ public class DispositivoController {
         }
     }
 
-    // Métodos para HU04: Actualizar Dispositivo (no modificados sustancialmente para HU05)
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         Dispositivo dispositivo = dispositivoService.findById(id);
@@ -111,16 +114,12 @@ public class DispositivoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Dispositivo no encontrado.");
             return "redirect:/dispositivos";
         }
-        // Asegúrate de que el cliente no sea nulo al cargar para editar (defensa)
         if (dispositivo.getCliente() == null) {
             System.err.println("ERROR: El dispositivo " + id + " tiene un cliente nulo.");
-            // Considera redirigir o mostrar un error más amigable si esto es un estado inválido.
             redirectAttributes.addFlashAttribute("errorMessage", "Error: El dispositivo no tiene un cliente asociado válido.");
-            return "redirect:/dispositivos"; // Redirigir para evitar errores en la vista.
+            return "redirect:/dispositivos";
         }
         model.addAttribute("dispositivo", dispositivo);
-        // Si necesitas la lista de clientes para un select en el formulario de edición:
-        // model.addAttribute("clientes", clienteService.findAll());
         return "dispositivos/edit";
     }
 
@@ -133,17 +132,15 @@ public class DispositivoController {
                 return "redirect:/dispositivos";
             }
 
-            // Aquí puedes añadir validaciones adicionales antes de actualizar.
             if (dispositivo.getMarca() == null || dispositivo.getMarca().trim().isEmpty()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "La Marca es un campo obligatorio y no puede estar vacío.");
-                return "redirect:/dispositivos/edit/" + dispositivo.getIdDispositivo(); // Redirigir de vuelta al formulario de edición con el error
+                return "redirect:/dispositivos/edit/" + dispositivo.getIdDispositivo();
             }
             if (dispositivo.getModelo() == null || dispositivo.getModelo().trim().isEmpty()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "El Modelo es un campo obligatorio y no puede estar vacío.");
                 return "redirect:/dispositivos/edit/" + dispositivo.getIdDispositivo();
             }
 
-            // Llama al servicio para actualizar
             Dispositivo updated = dispositivoService.updateDispositivo(dispositivo.getIdDispositivo(), dispositivo);
 
             if (updated == null) {
@@ -159,7 +156,6 @@ public class DispositivoController {
         }
     }
 
-    // --- NUEVO MÉTODO PARA LA HU05: MOSTRAR DETALLE DEL DISPOSITIVO ---
     @GetMapping("/details/{id}")
     public String showDispositivoDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         Dispositivo dispositivo = dispositivoService.findById(id);
@@ -167,15 +163,51 @@ public class DispositivoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Dispositivo no encontrado.");
             return "redirect:/dispositivos";
         }
-        // Asegúrate de que el cliente no sea nulo al mostrar detalles (defensa)
         if (dispositivo.getCliente() == null) {
             System.err.println("ERROR: El dispositivo " + id + " tiene un cliente nulo en los detalles.");
             redirectAttributes.addFlashAttribute("errorMessage", "Error: El dispositivo no tiene un cliente asociado válido para mostrar detalles.");
             return "redirect:/dispositivos";
         }
 
-        // Las órdenes de reparación se cargarán automáticamente al acceder a dispositivo.getOrdenesReparacion() en la vista
         model.addAttribute("dispositivo", dispositivo);
-        return "dispositivos/details"; // Esta es la nueva plantilla HTML
+        return "dispositivos/details";
+    }
+
+    // --- MÉTODO CORREGIDO PARA LA HU: VISUALIZAR RESUMEN DE DISPOSITIVOS ---
+    @GetMapping("/resumen")
+    public String resumen(Model model,
+                          @RequestParam(value = "estados", required = false) List<String> estadosString, // Recibimos como String
+                          @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                          @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        List<OrdenReparacion.EstadoOrden> estadosEnum = null;
+        if (estadosString != null && !estadosString.isEmpty()) {
+            estadosEnum = estadosString.stream()
+                    .map(OrdenReparacion.EstadoOrden::valueOf) // Convertir String a Enum
+                    .collect(Collectors.toList());
+        }
+
+        Map<String, Long> countsByEstado = dispositivoService.getDispositivoCountsByEstado();
+        model.addAttribute("countsByEstado", countsByEstado);
+
+        // Lista de todos los posibles valores de displayValue del enum para el select
+        List<String> allPossibleDisplayStates = Arrays.stream(OrdenReparacion.EstadoOrden.values())
+                .map(OrdenReparacion.EstadoOrden::getDisplayValue)
+                .collect(Collectors.toList());
+        model.addAttribute("allPossibleStates", allPossibleDisplayStates);
+
+
+        List<Dispositivo> dispositivosResumen = dispositivoService.findDispositivosForSummary(estadosEnum, startDate, endDate); // Pasamos la lista de Enums
+        model.addAttribute("dispositivos", dispositivosResumen);
+
+        model.addAttribute("selectedEstados", estadosString); // Mantenemos la lista de Strings para que el select se seleccione
+        model.addAttribute("selectedStartDate", startDate);
+        model.addAttribute("selectedEndDate", endDate);
+
+        if (dispositivosResumen.isEmpty() && (estadosString != null && !estadosString.isEmpty() || startDate != null || endDate != null)) {
+            model.addAttribute("noResultsMessage", "No se encontraron dispositivos que coincidan con los filtros aplicados.");
+        }
+
+        return "dispositivos/resumen";
     }
 }

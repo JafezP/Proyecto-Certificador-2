@@ -48,6 +48,25 @@
             background-color: #0056b3;
             border-color: #004085;
         }
+        /* Añadido estilo para el nuevo botón info */
+        .btn-info {
+            background-color: #17a2b8; /* Un azul cian */
+            border-color: #17a2b8;
+            color: white;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .btn-info:hover {
+            background-color: #117a8b;
+            border-color: #0f6674;
+        }
+        /* Asegura que los botones tengan espacio entre sí */
+        .mb-4.text-center a {
+            margin: 0 5px; /* Espacio horizontal entre los botones */
+        }
+
         .action-links {
             display: flex;
             gap: 10px;
@@ -78,6 +97,7 @@
 
     <div class="mb-4 text-center">
         <a href="/dispositivos/create" class="btn btn-primary">Registrar Nuevo Dispositivo</a>
+        <a href="/dispositivos/resumen" class="btn btn-info">Ver Resumen de Dispositivos</a>
     </div>
 
     <div class="search-form">
