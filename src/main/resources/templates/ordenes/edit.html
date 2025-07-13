@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Perú - Crear Orden de Reparación</title>
+    <title>Smart Perú - Editar Orden de Reparación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
@@ -17,7 +17,7 @@
     <div class="row mb-4">
         <div class="col">
             <a th:href="@{/ordenes}" class="btn btn-outline-secondary"
-               onclick="return confirm('¿Estás seguro de que deseas volver a la lista? Se perderán los datos ingresados.')">
+               onclick="return confirm('¿Estás seguro de que deseas volver a la lista? Se perderán los cambios no guardados.')">
                 <i class="bi bi-arrow-left me-2"></i>Volver a Órdenes
             </a>
         </div>
@@ -44,27 +44,30 @@
         </div>
     </div>
 
-    <!-- Formulario principal -->
+    <!-- Formulario de edición -->
     <div class="row">
         <div class="col-lg-10 mx-auto">
             <div class="card shadow-sm rounded-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-warning text-dark">
                     <h3 class="card-title mb-0">
-                        <i class="bi bi-wrench-adjustable-circle-fill me-2"></i>Crear Nueva Orden de Reparación
+                        <i class="bi bi-pencil-square me-2"></i>Editar Orden de Reparación
                     </h3>
                 </div>
                 <div class="card-body p-4">
-                    <!-- Información de guía -->
-                    <div class="alert alert-primary d-flex align-items-center mb-4">
-                        <i class="bi bi-lightbulb me-2"></i>
+                    <!-- Información de la orden actual -->
+                    <div class="alert alert-info d-flex align-items-center mb-4">
+                        <i class="bi bi-info-circle me-2"></i>
                         <div>
-                            <strong>Complete la información necesaria</strong> para crear una nueva orden de
-                            reparación en el sistema.
+                            <strong>Editando Orden:</strong>
+                            <span th:text="${orden.descripcionProblema}"></span>
+                            <small class="text-muted ms-2">
+                                (ID: <span th:text="${orden.idOrden}"></span>)
+                            </small>
                         </div>
                     </div>
 
                     <!-- Formulario -->
-                    <form action="/ordenes/save" method="POST" th:object="${orden}">
+                    <form th:action="@{/ordenes/save}" th:object="${orden}" method="post">
 
                         <div class="row">
                             <!-- Dispositivo -->
@@ -128,8 +131,6 @@
                                             th:text="${estado.displayValue}">
                                     </option>
                                 </select>
-                                <small class="form-text text-muted">El estado inicial será "Pendiente de
-                                    diagnóstico" si no se especifica.</small>
                             </div>
 
                             <!-- Descripción del problema -->
@@ -214,6 +215,38 @@
                             </div>
                         </div>
 
+                        <!-- Campos de solo lectura -->
+                        <hr class="my-4">
+                        <h6 class="text-muted mb-3">
+                            <i class="bi bi-info-circle me-2"></i>Información no editable
+                        </h6>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-muted">
+                                    <i class="bi bi-hash me-1"></i>ID Orden
+                                </label>
+                                <input type="text" class="form-control" th:field="*{idOrden}"
+                                       th:value="${orden.idOrden}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>Fecha de Registro
+                                </label>
+                                <input type="text" class="form-control" th:field="*{fechaCreacion}"
+                                       th:value="${#temporals.format(orden.fechaCreacion, 'dd/MM/yyyy HH:mm')}"
+                                       readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-muted">
+                                    <i class="bi bi-calendar-check me-1"></i>Fecha de Actualización
+                                </label>
+                                <input type="text" class="form-control" th:field="*{fechaActualizacion}"
+                                       th:value="${#temporals.format(orden.fechaActualizacion, 'dd/MM/yyyy HH:mm')}"
+                                       readonly>
+                            </div>
+                        </div>
+
                         <!-- Nota -->
                         <div class="alert alert-light border d-flex align-items-center mb-4">
                             <i class="bi bi-asterisk text-danger me-2"></i>
@@ -228,19 +261,19 @@
                                 <div class="d-flex flex-column flex-md-row gap-2 justify-content-between">
                                     <!-- Botones principales -->
                                     <div class="d-flex gap-2 flex-column flex-md-row">
-                                        <button type="submit" class="btn btn-primary btn-lg">
-                                            <i class="bi bi-plus-circle-fill me-2"></i>
-                                            Crear Orden
+                                        <button type="submit" class="btn btn-warning btn-lg">
+                                            <i class="bi bi-check-circle-fill me-2"></i>
+                                            Guardar Cambios
                                         </button>
                                         <button type="reset" class="btn btn-outline-secondary btn-lg">
                                             <i class="bi bi-arrow-clockwise me-2"></i>
-                                            Limpiar Formulario
+                                            Restablecer
                                         </button>
                                     </div>
 
                                     <!-- Botón cancelar -->
                                     <a th:href="@{/ordenes}" class="btn btn-outline-danger btn-lg"
-                                       onclick="return confirm('¿Estás seguro de que deseas cancelar? Se perderán los datos ingresados.')">
+                                       onclick="return confirm('¿Estás seguro de que deseas cancelar? Se perderán los cambios no guardados.')">
                                         <i class="bi bi-x-circle me-2"></i>
                                         Cancelar
                                     </a>
@@ -253,13 +286,13 @@
         </div>
     </div>
 
-    <!-- Vista previa de datos -->
+    <!-- Vista previa -->
     <div class="row mt-4">
         <div class="col-lg-10 mx-auto">
             <div class="card border-info">
                 <div class="card-header bg-info text-white">
                     <h6 class="card-title mb-0">
-                        <i class="bi bi-eye-fill me-2"></i>Resumen de la Orden
+                        <i class="bi bi-eye-fill me-2"></i>Vista Previa de la Orden
                     </h6>
                 </div>
                 <div class="card-body">
@@ -372,6 +405,9 @@
                 fechaPreview.textContent = '-';
             }
         };
+
+        // Inicializar vista previa con valores actuales
+        updatePreview();
 
         // Event listeners para actualizar la vista previa
         document.getElementById('idDispositivo').addEventListener('change', updatePreview);

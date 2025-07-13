@@ -11,10 +11,7 @@ import com.peru.smartperu.service.TecnicoService;     // Para el select de técn
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static com.peru.smartperu.model.OrdenReparacion.EstadoOrden; // Importa el Enum
@@ -54,10 +51,40 @@ public class OrdenReparacionController {
             redirectAttributes.addFlashAttribute("successMessage", "Orden de Reparación registrada exitosamente!");
             return "redirect:/ordenes";
         } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al registrar la orden: " + e.getMessage());
-            return "redirect:/ordenes/create";
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+
+            // Redirige al formulario correcto (crear o editar)
+            if (ordenDto.getIdOrden() != null) {
+                return "redirect:/ordenes/edit/" + ordenDto.getIdOrden();
+            } else {
+                return "redirect:/ordenes/create";
+            }
         }
+//        try {
+//            ordenReparacionService.save(ordenDto);
+//            redirectAttributes.addFlashAttribute("successMessage", "Orden de Reparación registrada exitosamente!");
+//            return "redirect:/ordenes";
+//        } catch (RuntimeException e) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "Error al registrar la orden: " + e.getMessage());
+//            return "redirect:/ordenes/create";
+//        }
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable int id) {
+        OrdenReparacion orden = ordenReparacionService.findById(id);
+        OrdenReparacionDto dto = ordenReparacionService.convertToDto(orden);
+
+        model.addAttribute("orden", dto); // ahora es DTO
+        model.addAttribute("dispositivos", dispositivoService.findAll());
+        model.addAttribute("clientes", clienteService.findAll());
+        model.addAttribute("tecnicos", tecnicoService.findAll());
+        model.addAttribute("estadosOrden", EstadoOrden.values());
+
+        return "ordenes/edit";
+    }
+
+
 
     // Aquí podrías añadir métodos para 'view', 'edit', 'delete' más adelante
 }

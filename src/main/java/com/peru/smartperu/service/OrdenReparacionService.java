@@ -105,4 +105,28 @@ public class OrdenReparacionService {
 
         return ordenReparacionRepository.save(orden);
     }
+
+    public OrdenReparacionDto convertToDto(OrdenReparacion orden) {
+        OrdenReparacionDto dto = new OrdenReparacionDto();
+
+        dto.setIdOrden(orden.getIdOrden());
+        dto.setIdDispositivo(orden.getDispositivo() != null ? orden.getDispositivo().getIdDispositivo() : null);
+        dto.setIdCliente(orden.getCliente() != null ? orden.getCliente().getIdCliente() : null);
+        dto.setIdTecnico(orden.getTecnico() != null ? orden.getTecnico().getIdTecnico() : null);
+
+        dto.setFechaCreacion(orden.getFechaCreacion());
+        dto.setFechaActualizacion(orden.getFechaActualizacion());
+
+        dto.setDescripcionProblema(orden.getDescripcionProblema());
+        dto.setDiagnosticoTecnico(orden.getDiagnosticoTecnico());
+        dto.setSolucionAplicada(orden.getSolucionAplicada());
+        dto.setEstadoOrden(orden.getEstadoOrden());
+        dto.setCostoEstimado(orden.getCostoEstimado());
+        dto.setCostoFinal(orden.getCostoFinal());
+        dto.setFechaEntrega(orden.getFechaEntrega());
+        dto.setObservaciones(orden.getObservaciones());
+
+        return dto;
+    }
+
 }
