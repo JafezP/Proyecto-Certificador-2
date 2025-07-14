@@ -27,9 +27,14 @@ public class OrdenReparacionController {
     private final TecnicoService tecnicoService;
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("ordenes", ordenReparacionService.findAll());
-        return "ordenes/index"; // Vista para listar órdenes
+    public String index(Model model,
+                       @RequestParam(value = "estado", required = false) EstadoOrden estado,
+                       @RequestParam(value = "tecnicoId", required = false) Integer tecnicoId,
+                       @RequestParam(value = "busqueda", required = false) String busqueda) {
+        model.addAttribute("ordenes", ordenReparacionService.findByFiltros(estado, tecnicoId, busqueda));
+        model.addAttribute("estadosOrden", EstadoOrden.values());
+        model.addAttribute("tecnicos", tecnicoService.findAll());
+        return "ordenes/index";
     }
 
     @GetMapping("/create")

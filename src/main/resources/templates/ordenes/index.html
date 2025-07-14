@@ -81,6 +81,33 @@
         <a href="/ordenes/create" class="btn btn-primary">Crear Nueva Orden de Reparación</a>
     </div>
 
+    <!-- Filtros de búsqueda -->
+    <form class="row g-3 mb-4" method="get" th:action="@{/ordenes}">
+        <div class="col-md-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select id="estado" name="estado" class="form-select">
+                <option value="">Todos</option>
+                <option th:each="estado : ${estadosOrden}" th:value="${estado}" th:text="${estado.displayValue}" th:selected="${estado} == ${param.estado}"></option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="tecnico" class="form-label">Técnico Asignado</label>
+            <select id="tecnico" name="tecnicoId" class="form-select">
+                <option value="">Todos</option>
+                <option th:each="tecnico : ${tecnicos}" th:value="${tecnico.idTecnico}" th:text="${tecnico.nombreCompleto}" th:selected="${tecnico.idTecnico} == ${param.tecnicoId}"></option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="busqueda" class="form-label">Buscar Cliente (nombre/DNI) o IMEI</label>
+            <input type="text" id="busqueda" name="busqueda" class="form-control" th:value="${param.busqueda}">
+        </div>
+        <div class="col-md-2 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-primary w-100">Aplicar Filtros</button>
+            <a th:href="@{/ordenes}" class="btn btn-secondary w-100">Limpiar Filtros</a>
+        </div>
+    </form>
+    <!-- Fin filtros -->
+
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover align-middle caption-top">
             <caption>Listado de todas las órdenes de reparación</caption>

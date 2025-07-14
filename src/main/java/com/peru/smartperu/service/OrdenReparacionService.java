@@ -129,4 +129,28 @@ public class OrdenReparacionService {
         return dto;
     }
 
+    public List<OrdenReparacion> findByFiltros(EstadoOrden estado, Integer tecnicoId, String busqueda) {
+        List<OrdenReparacion> lista = ordenReparacionRepository.findAll();
+        // Filtrar por estado si se especifica
+        if (estado != null) {
+            lista = lista.stream().filter(o -> o.getEstadoOrden() == estado).toList();
+        }
+        // Filtrar por técnico si se especifica
+        if (tecnicoId != null) {
+            lista = lista.stream().filter(o -> o.getTecnico() != null && o.getTecnico().getIdTecnico().equals(tecnicoId)).toList();
+        }
+        // Filtrar por búsqueda general (cliente nombre/DNI o IMEI)
+        if (busqueda != null && !busqueda.isBlank()) {
+            String b = busqueda.trim().toLowerCase();
+            lista = lista.stream().filter(o ->
+                (o.getCliente() != null && (
+                    (o.getCliente().getNombreCompleto() != null && o.getCliente().getNombreCompleto().toLowerCase().contains(b)) ||
+                    (o.getCliente().getDni() != null && o.getCliente().getDni().toLowerCase().contains(b))
+                ))
+                || (o.getDispositivo() != null && o.getDispositivo().getNumeroSerieImei() != null && o.getDispositivo().getNumeroSerieImei().toLowerCase().contains(b))
+            ).toList();
+        }
+        return lista;
+    }
+
 }
