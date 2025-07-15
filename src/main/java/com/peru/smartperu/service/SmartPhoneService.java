@@ -24,4 +24,17 @@ public class SmartPhoneService {
     public void save(SmartPhone smartPhone) {
         smartPhoneRepository.save(smartPhone);
     }
+
+    public List<SmartPhone> listarDisponibles() {
+        return smartPhoneRepository.findByDisponibleTrue();
+    }
+
+    public void actualizarStock(SmartPhone smartphone) {
+        smartphone.setDisponible(false); // Marcamos como no disponible
+        smartPhoneRepository.save(smartphone);
+    }
+
+    public SmartPhone buscarPorId(Integer id) {
+        return smartPhoneRepository.findById(id).orElse(null);
+    }
 }
