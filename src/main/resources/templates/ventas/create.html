@@ -3,69 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Orden de Venta</title>
-    <script>
-        function actualizarPrecio(select, index) {
-            const selectedOption = select.options[select.selectedIndex];
-            const precio = parseFloat(selectedOption.dataset.precio);
-            document.getElementById('precio-' + index).value = precio.toFixed(2);
-            calcularTotales();
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
         }
-
-        function calcularTotales() {
-            let subtotal = 0;
-            document.querySelectorAll('.precio').forEach(input => {
-                const precio = parseFloat(input.value) || 0;
-                subtotal += precio;
-            });
-            const impuesto = subtotal * 0.18;
-            const total = subtotal + impuesto;
-
-            document.getElementById('subtotal').innerText = subtotal.toFixed(2);
-            document.getElementById('impuesto').innerText = impuesto.toFixed(2);
-            document.getElementById('total').innerText = total.toFixed(2);
+        label {
+            font-weight: bold;
         }
-
-        function agregarItem() {
-            const index = document.querySelectorAll('.item-row').length;
-            const fila = document.createElement('div');
-            fila.classList.add('item-row');
-            fila.innerHTML = `
-                <select name="items[${index}].descripcionId" onchange="actualizarPrecio(this, ${index})">
-                    <option value="">-- Seleccionar --</option>
-                    <!-- Smartphones desde backend -->
-                    <th:block th:each="s : ${smartphones}">
-                        <option th:value="${s.idSmartPhone}"
-                                th:data-precio="${s.precio}"
-                                th:text="${s.marca + ' ' + s.modelo + ' (IMEI: ' + s.imei + ')'}"
-                                th:attr="data-precio=${s.precio}"></option>
-                    </th:block>
-                </select>
-                <input type="text" readonly id="precio-${index}" class="precio" value="0.00"/>
-            `;
-            document.getElementById('items').appendChild(fila);
+        .item-row {
+            margin-bottom: 10px;
         }
-    </script>
+        input[readonly] {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
 <h2>Registrar Orden de Venta</h2>
+
 <form th:action="@{/ventas/save}" method="post" th:object="${ordenVenta}">
+    <!-- Cliente -->
     <label>Cliente:</label>
-    <select th:field="*{cliente.idCliente}">
+    <select th:field="*{cliente.idCliente}" required>
+        <option value="">-- Seleccionar Cliente --</option>
         <option th:each="c : ${clientes}" th:value="${c.idCliente}" th:text="${c.nombreCompleto}"></option>
     </select>
 
     <hr>
+    <!-- Smartphones -->
     <h4>Smartphones</h4>
     <div id="items"></div>
     <button type="button" onclick="agregarItem()">+ Añadir Smartphone</button>
 
+    <!-- Select oculto para clonar -->
+    <select id="select-template" style="display:none;">
+        <option value="">-- Seleccionar --</option>
+        <option th:each="s : ${smartphones}"
+                th:value="${s.idSmartPhone}"
+                th:data-precio="${s.precio}"
+                th:text="${s.marca + ' ' + s.modelo + ' (IMEI: ' + s.imei + ')'}">
+        </option>
+    </select>
+
     <hr>
+    <!-- Totales -->
     <p>Subtotal: S/ <span id="subtotal">0.00</span></p>
     <p>IGV (18%): S/ <span id="impuesto">0.00</span></p>
     <p>Total: S/ <span id="total">0.00</span></p>
 
+    <!-- Botones -->
     <button type="submit">Guardar Orden de Venta</button>
     <a href="/ventas">Cancelar</a>
 </form>
+
+<script>
+    function actualizarPrecio(select, index) {
+        const selectedOption = select.options[select.selectedIndex];
+        const precio = parseFloat(selectedOption.dataset.precio || 0);
+        document.getElementById('precio-' + index).value = precio.toFixed(2);
+        calcularTotales();
+    }
+
+    function calcularTotales() {
+        let subtotal = 0;
+        document.querySelectorAll('.precio').forEach(input => {
+            subtotal += parseFloat(input.value || 0);
+        });
+        const igv = subtotal * 0.18;
+        const total = subtotal + igv;
+
+        document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+        document.getElementById('impuesto').innerText = igv.toFixed(2);
+        document.getElementById('total').innerText = total.toFixed(2);
+    }
+
+    function agregarItem() {
+        const index = document.querySelectorAll('.item-row').length;
+
+        const selectOriginal = document.getElementById('select-template');
+        const selectClone = selectOriginal.cloneNode(true);
+        selectClone.style.display = '';
+        selectClone.name = `items[${index}].descripcionId`;
+        selectClone.setAttribute("onchange", `actualizarPrecio(this, ${index})`);
+
+        const inputPrecio = document.createElement("input");
+        inputPrecio.type = "text";
+        inputPrecio.readOnly = true;
+        inputPrecio.className = "precio";
+        inputPrecio.id = `precio-${index}`;
+        inputPrecio.value = "0.00";
+
+        const fila = document.createElement("div");
+        fila.className = "item-row";
+        fila.appendChild(selectClone);
+        fila.appendChild(inputPrecio);
+
+        document.getElementById("items").appendChild(fila);
+    }
+</script>
 </body>
 </html>

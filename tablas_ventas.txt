@@ -1,0 +1,27 @@
+-- Tabla: orden_venta
+CREATE TABLE orden_venta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    fecha DATE NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    impuesto DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- Tabla: item_orden_venta
+CREATE TABLE item_orden_venta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    orden_venta_id INT NOT NULL,
+    descripcion_id INT NOT NULL, -- id del smartphone vendido
+    tipo_item VARCHAR(50) DEFAULT 'smartphone',
+    descripcion VARCHAR(255),
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    subtotal DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (orden_venta_id) REFERENCES orden_venta(id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (descripcion_id) REFERENCES smartphones(id_smart_phone)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+);
