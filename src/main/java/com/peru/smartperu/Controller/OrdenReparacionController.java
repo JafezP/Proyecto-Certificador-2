@@ -53,7 +53,7 @@ public class OrdenReparacionController {
                        RedirectAttributes redirectAttributes) {
         try {
             ordenReparacionService.save(ordenDto);
-            redirectAttributes.addFlashAttribute("successMessage", "Orden de Reparación registrada exitosamente!");
+            redirectAttributes.addFlashAttribute("successMessage", "¡Datos guardados correctamente!");
             return "redirect:/ordenes";
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());

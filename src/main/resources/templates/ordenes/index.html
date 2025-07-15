@@ -106,6 +106,17 @@
             <a th:href="@{/ordenes}" class="btn btn-secondary w-100">Limpiar Filtros</a>
         </div>
     </form>
+
+    <div>
+        <div th:if="${successMessage}"
+             class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-0"
+             role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <div>
+                <strong>¡Éxito!</strong> <span th:text="${successMessage}"></span>
+            </div>
+        </div>
+    </div>
     <!-- Fin filtros -->
 
     <div class="table-responsive">
