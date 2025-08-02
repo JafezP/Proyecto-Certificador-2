@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphones Perú - Promociones</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+            <i class="fas fa-mobile-alt text-warning me-2"></i>Smartphones Perú
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold active" href="#promociones">Promociones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#smartphones">Smartphones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#contacto">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header de Promociones -->
+<section class="bg-warning py-5" id="promociones">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-fire text-danger fs-1 me-3"></i>
+                    <h1 class="display-4 fw-bold text-success mb-0">¡Promociones Increíbles!</h1>
+                </div>
+                <p class="lead text-dark mb-4">
+                    Encuentra los mejores smartphones con descuentos exclusivos. Ofertas por tiempo limitado.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-danger fs-6 px-3 py-2">
+                            <i class="fas fa-clock me-1"></i>Ofertas por tiempo limitado
+                        </span>
+                    <span class="badge bg-success fs-6 px-3 py-2">
+                            <i class="fas fa-shipping-fast me-1"></i>Envío gratis
+                        </span>
+                    <span class="badge bg-dark fs-6 px-3 py-2">
+                            <i class="fas fa-shield-alt me-1"></i>Garantía oficial
+                        </span>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="position-relative">
+                    <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center"
+                         style="width: 200px; height: 200px;">
+                        <i class="fas fa-tags text-warning" style="font-size: 80px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contador y Filtros -->
+<section class="py-4 bg-white border-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5 class="mb-0 text-success">
+                    <i class="fas fa-mobile-alt me-2"></i>
+                    <span id="contador-productos">8</span> Smartphones en Promoción
+                </h5>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <small class="text-muted">
+                    <i class="fas fa-sort-amount-down me-2"></i>
+                    Ordenados por mayor descuento
+                </small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grid de Promociones -->
+<section class="py-5" id="promociones-container">
+    <div class="container">
+        <!-- Productos en Promoción -->
+        <div class="row g-4" id="productos-grid">
+
+            <!-- Producto 1 - 45% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <!-- Badge de descuento -->
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-danger fs-6 px-3 py-2">
+                                <i class="fas fa-fire me-1"></i>45% OFF
+                            </span>
+                    </div>
+
+                    <!-- Imagen del producto -->
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-apple text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">iPhone 13 Pro</h6>
+                        <p class="text-muted small mb-3">256GB - Azul Sierra</p>
+
+                        <!-- Precios -->
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$1,099</span>
+                                <span class="badge bg-warning text-dark">-$494</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$605</h4>
+                        </div>
+
+                        <!-- Características -->
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 2 - 40% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-danger fs-6 px-3 py-2">
+                                <i class="fas fa-fire me-1"></i>40% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-android text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">Samsung Galaxy S23</h6>
+                        <p class="text-muted small mb-3">128GB - Verde Menta</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$899</span>
+                                <span class="badge bg-warning text-dark">-$360</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$539</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 3 - 35% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-danger fs-6 px-3 py-2">
+                                <i class="fas fa-fire me-1"></i>35% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fas fa-mobile-alt text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">Xiaomi 13 Pro</h6>
+                        <p class="text-muted small mb-3">256GB - Negro Cósmico</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$799</span>
+                                <span class="badge bg-warning text-dark">-$280</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$519</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 4 - 30% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-danger fs-6 px-3 py-2">
+                                <i class="fas fa-fire me-1"></i>30% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-google text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">Google Pixel 7</h6>
+                        <p class="text-muted small mb-3">128GB - Blanco Nieve</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$699</span>
+                                <span class="badge bg-warning text-dark">-$210</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$489</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 5 - 25% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                <i class="fas fa-percentage me-1"></i>25% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-apple text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">iPhone 12</h6>
+                        <p class="text-muted small mb-3">128GB - Púrpura</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$599</span>
+                                <span class="badge bg-warning text-dark">-$150</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$449</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 6 - 20% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                <i class="fas fa-percentage me-1"></i>20% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-android text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">OnePlus 11</h6>
+                        <p class="text-muted small mb-3">256GB - Verde Eterno</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$749</span>
+                                <span class="badge bg-warning text-dark">-$150</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$599</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 7 - 15% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                <i class="fas fa-percentage me-1"></i>15% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fas fa-mobile-alt text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">Huawei P50 Pro</h6>
+                        <p class="text-muted small mb-3">256GB - Dorado Cóctel</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$649</span>
+                                <span class="badge bg-warning text-dark">-$97</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$552</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 8 - 10% descuento -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm position-relative">
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                            <span class="badge bg-success fs-6 px-3 py-2">
+                                <i class="fas fa-percentage me-1"></i>10% OFF
+                            </span>
+                    </div>
+
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                         style="height: 250px;">
+                        <i class="fab fa-android text-success" style="font-size: 80px;"></i>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="fw-bold text-success mb-2">Motorola Edge 40</h6>
+                        <p class="text-muted small mb-3">128GB - Azul Viva</p>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="text-decoration-line-through text-muted fs-6">$499</span>
+                                <span class="badge bg-warning text-dark">-$50</span>
+                            </div>
+                            <h4 class="text-success fw-bold mb-0">$449</h4>
+                        </div>
+
+                        <div class="mb-3 flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <small class="text-muted">En stock</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shipping-fast text-success me-2"></i>
+                                <small class="text-muted">Envío gratis</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success fw-semibold">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </button>
+                            <button class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-eye me-2"></i>Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Estado sin promociones (oculto por defecto) -->
+        <div id="sin-promociones" class="text-center py-5 d-none">
+            <div class="mb-4">
+                <i class="fas fa-tags text-muted" style="font-size: 80px;"></i>
+            </div>
+            <h3 class="text-muted mb-3">Actualmente no hay promociones disponibles.</h3>
+            <p class="text-muted mb-4">Regresa pronto para encontrar increíbles ofertas en smartphones.</p>
+            <a href="#smartphones" class="btn btn-success btn-lg">
+                <i class="fas fa-mobile-alt me-2"></i>Ver Todos los Smartphones
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-success text-white" id="contacto">
+    <div class="container text-center">
+        <h3 class="fw-bold mb-3">¿No encontraste lo que buscabas?</h3>
+        <p class="lead mb-4">Tenemos más de 200 modelos disponibles. Explora nuestro catálogo completo.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="#smartphones" class="btn btn-warning btn-lg px-4">
+                <i class="fas fa-mobile-alt me-2"></i>Ver Todos los Smartphones
+            </a>
+            <a href="#contacto" class="btn btn-outline-light btn-lg px-4">
+                <i class="fas fa-phone me-2"></i>Contactar Asesor
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<div th:insert="fragments :: footer"></div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Simulación de datos de productos con disponibilidad
+    const productosDisponibles = [
+        { nombre: "iPhone 13 Pro", descuento: 45, disponible: true },
+        { nombre: "Samsung Galaxy S23", descuento: 40, disponible: true },
+        { nombre: "Xiaomi 13 Pro", descuento: 35, disponible: true },
+        { nombre: "Google Pixel 7", descuento: 30, disponible: true },
+        { nombre: "iPhone 12", descuento: 25, disponible: true },
+        { nombre: "OnePlus 11", descuento: 20, disponible: true },
+        { nombre: "Huawei P50 Pro", descuento: 15, disponible: true },
+        { nombre: "Motorola Edge 40", descuento: 10, disponible: true }
+    ];
+
+    // Función para mostrar/ocultar productos según disponibilidad
+    function mostrarProductosDisponibles() {
+        const productosEnPromocion = productosDisponibles.filter(producto => producto.disponible);
+        const contador = document.getElementById('contador-productos');
+        const grid = document.getElementById('productos-grid');
+        const sinPromociones = document.getElementById('sin-promociones');
+
+        if (productosEnPromocion.length === 0) {
+            // No hay promociones disponibles
+            grid.classList.add('d-none');
+            sinPromociones.classList.remove('d-none');
+            contador.textContent = '0';
+        } else {
+            // Hay promociones disponibles
+            grid.classList.remove('d-none');
+            sinPromociones.classList.add('d-none');
+            contador.textContent = productosEnPromocion.length;
+        }
+    }
+
+    // Inicializar la página
+    document.addEventListener('DOMContentLoaded', function () {
+        mostrarProductosDisponibles();
+    });
+
+    // Función para simular cambio de disponibilidad (para demostración)
+    function toggleDisponibilidad() {
+        // Cambiar disponibilidad de algunos productos aleatoriamente
+        productosDisponibles.forEach(producto => {
+            if (Math.random() < 0.3) { // 30% de probabilidad de cambio
+                producto.disponible = !producto.disponible;
+            }
+        });
+        mostrarProductosDisponibles();
+    }
+
+    // Agregar eventos a los botones de compra
+    document.querySelectorAll('.btn-success').forEach(boton => {
+        if (boton.textContent.includes('Comprar')) {
+            boton.addEventListener('click', function () {
+                const card = this.closest('.card');
+                const nombreProducto = card.querySelector('h6').textContent;
+                const precio = card.querySelector('h4').textContent;
+
+                // Simular proceso de compra
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Procesando...';
+                this.disabled = true;
+
+                setTimeout(() => {
+                    alert(`¡Excelente elección! ${nombreProducto} por ${precio} ha sido agregado al carrito.`);
+                    this.innerHTML = '<i class="fas fa-shopping-cart me-2"></i>Comprar Ahora';
+                    this.disabled = false;
+                }, 2000);
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

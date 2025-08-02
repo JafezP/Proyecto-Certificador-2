@@ -1,0 +1,76 @@
+<!-- fragments.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="footer">
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-mobile-alt text-warning me-2"></i>Smartphones Perú
+                    </h5>
+                    <p class="text-light mb-3">
+                        Tu tienda de confianza para smartphones. Compramos, vendemos y reparamos con la mejor calidad y
+                        garantía.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-warning fs-4"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-warning fs-4"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-warning fs-4"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3 text-warning">Contacto</h6>
+                    <div class="text-light">
+                        <p class="mb-2">
+                            <i class="fas fa-phone me-2"></i>
+                            +51 999 888 777
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            info@smartperu.com.com
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-clock me-2"></i>
+                            Lun - Sáb: 9AM - 8PM
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3 text-warning">Servicios</h6>
+                    <ul class="list-unstyled">
+                        <li class="text-light">Reparación de pantallas</li>
+                        <li class="text-light">Cambio de baterías</li>
+                        <li class="text-light">Compra de usados</li>
+                        <li class="text-light">Venta de nuevos</li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3 text-warning">Horarios</h6>
+                    <div class="text-light">
+                        <p class="mb-2"><strong>Lunes - Viernes:</strong><br>9:00 AM - 8:00 PM</p>
+                        <p class="mb-2"><strong>Sábados:</strong><br>9:00 AM - 6:00 PM</p>
+                        <p class="mb-0"><strong>Domingos:</strong><br>Cerrado</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <small class="text-light">&copy; 2025 Smartphones Perú. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-light">
+                        <a href="#" class="text-warning text-decoration-none me-3">Términos y Condiciones</a>
+                        <a href="#" class="text-warning text-decoration-none">Política de Privacidad</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

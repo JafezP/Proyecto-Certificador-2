@@ -1,52 +1,409 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Smartphones Disponibles</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphones Perú</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+            <i class="fas fa-mobile-alt text-warning me-2"></i>Smartphones Perú
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#smartphones">Ver Smartphones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="/promociones">Promociones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#servicios">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#sobre-nosotros">Sobre Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#contacto">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<div class="container py-5">
-    <h2 class="mb-4 text-center">Smartphones Disponibles</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    
-    <!-- Tarjeta 1 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm">
-            <img th:src="@{/img/imgIphone13.jpg}" class="card-img-top" alt="Smartphone 1">
-            <div class="card-body">
-                <h5 class="card-title">iPhone 13</h5>
-                <p class="card-text text-primary fw-bold">S/ 3,200.00</p>
+<!-- Hero Banner -->
+<section id="inicio" class="bg-warning text-dark py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    Los Mejores Smartphones al Mejor Precio
+                </h1>
+                <p class="lead mb-4">
+                    Encuentra el smartphone perfecto para ti. Compramos, vendemos y reparamos dispositivos móviles
+                    con garantía y calidad profesional.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#smartphones" class="btn btn-success btn-lg px-4 py-2">
+                        <i class="fas fa-mobile-alt me-2"></i>Ver Smartphones
+                    </a>
+                    <a href="#servicios" class="btn btn-success btn-lg px-4 py-2">
+                        <i class="fas fa-tools me-2"></i>Nuestros Servicios
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="position-relative">
+                    <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center"
+                         style="width: 300px; height: 300px;">
+                        <i class="fas fa-mobile-alt text-warning" style="font-size: 120px;"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Tarjeta 2 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm">
-            <img th:src="@{/img/imgSamsung25.jpg}" class="card-img-top" alt="Smartphone 2">
-            <div class="card-body">
-                <h5 class="card-title">Samsung Galaxy S25</h5>
-                <p class="card-text text-primary fw-bold">S/ 2,899.00</p>
+<!-- Servicios Principales -->
+<section id="servicios" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-success mb-3">Nuestros Servicios</h2>
+            <p class="lead text-muted">Soluciones completas para todas tus necesidades móviles</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-tools text-success fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold text-success mb-3">Reparación</h4>
+                        <p class="text-muted mb-4">Reparamos pantallas, baterías, cámaras y más. Técnicos
+                            especializados con garantía de 6 meses.</p>
+                        <a href="#contacto" class="btn btn-outline-success">Consultar Reparación</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-shopping-cart text-warning fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold text-success mb-3">Compra</h4>
+                        <p class="text-muted mb-4">Compramos tu smartphone usado al mejor precio. Evaluación
+                            gratuita y pago inmediato.</p>
+                        <a href="#contacto" class="btn btn-outline-success">Vender Mi Phone</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-tags text-success fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold text-success mb-3">Venta</h4>
+                        <p class="text-muted mb-4">Smartphones nuevos y seminuevos de las mejores marcas. Garantía
+                            oficial y mejores precios.</p>
+                        <a href="#smartphones" class="btn btn-outline-success">Ver Catálogo</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Tarjeta 3 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm">
-            <img th:src="@{/img/imgXiaomi12.jpg}" class="card-img-top" alt="Smartphone 3">
-            <div class="card-body">
-                <h5 class="card-title">Xiaomi Redmi Note 12</h5>
-                <p class="card-text text-primary fw-bold">S/ 899.00</p>
+<!-- Smartphones Destacados -->
+<section id="smartphones" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-success mb-3">Smartphones Destacados</h2>
+            <p class="lead text-muted">Los modelos más populares al mejor precio</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-light rounded p-3 mb-3">
+                            <i class="fab fa-apple text-success" style="font-size: 60px;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">iPhone 15</h5>
+                        <p class="text-muted small mb-3">Nuevo - 128GB</p>
+                        <h4 class="text-warning fw-bold mb-3">$899</h4>
+                        <button class="btn btn-success btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-light rounded p-3 mb-3">
+                            <i class="fab fa-android text-success" style="font-size: 60px;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Samsung Galaxy S24</h5>
+                        <p class="text-muted small mb-3">Nuevo - 256GB</p>
+                        <h4 class="text-warning fw-bold mb-3">$799</h4>
+                        <button class="btn btn-success btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-light rounded p-3 mb-3">
+                            <i class="fab fa-google text-success" style="font-size: 60px;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Google Pixel 8</h5>
+                        <p class="text-muted small mb-3">Seminuevo - 128GB</p>
+                        <h4 class="text-warning fw-bold mb-3">$549</h4>
+                        <button class="btn btn-success btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-light rounded p-3 mb-3">
+                            <i class="fas fa-mobile-alt text-success" style="font-size: 60px;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Xiaomi 14</h5>
+                        <p class="text-muted small mb-3">Nuevo - 256GB</p>
+                        <h4 class="text-warning fw-bold mb-3">$649</h4>
+                        <button class="btn btn-success btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="#contacto" class="btn btn-warning btn-lg px-5 py-3">
+                <i class="fas fa-eye me-2"></i>Ver Todos los Smartphones
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonios -->
+<section class="py-5 bg-success text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Lo Que Dicen Nuestros Clientes</h2>
+            <p class="lead">Más de 5,000 clientes satisfechos nos respaldan</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card bg-light text-dark h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-3">"Excelente servicio de reparación. Mi iPhone quedó como nuevo y el precio
+                            fue muy justo. Definitivamente recomendado."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">María González</h6>
+                                <small class="text-muted">Cliente verificado</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-light text-dark h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-3">"Compré un Samsung Galaxy y la atención fue perfecta. El teléfono llegó en
+                            excelentes condiciones y con garantía."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Carlos Rodríguez</h6>
+                                <small class="text-muted">Cliente verificado</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-light text-dark h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-3">"Me compraron mi teléfono usado a un precio muy bueno y el proceso fue súper
+                            rápido. Muy profesionales."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                                 style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Ana Martínez</h6>
+                                <small class="text-muted">Cliente verificado</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-  </div>
-</div>
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Sobre Nosotros -->
+<section id="sobre-nosotros" class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold text-success mb-4">Sobre Smarphones Perú</h2>
+                <p class="lead mb-4">
+                    Con más de 10 años de experiencia en el mercado de smartphones, somos la tienda de confianza
+                    para miles de clientes.
+                </p>
+                <div class="row g-3 mb-4">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success fs-4 me-3"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">+5,000</h6>
+                                <small class="text-muted">Clientes Satisfechos</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-tools text-success fs-4 me-3"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">+10,000</h6>
+                                <small class="text-muted">Reparaciones</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-shield-alt text-success fs-4 me-3"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">6 Meses</h6>
+                                <small class="text-muted">Garantía</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-clock text-success fs-4 me-3"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">10 Años</h6>
+                                <small class="text-muted">Experiencia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="bg-warning rounded p-5">
+                    <i class="fas fa-store text-success" style="font-size: 120px;"></i>
+                    <h4 class="fw-bold text-success mt-3">Tu Tienda de Confianza</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contacto -->
+<section id="contacto" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-success mb-3">Contáctanos</h2>
+            <p class="lead text-muted">Estamos aquí para ayudarte con todas tus necesidades móviles</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-phone text-white fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-success mb-3">Teléfono</h5>
+                        <p class="text-muted mb-3">Llámanos para consultas y citas</p>
+                        <h6 class="fw-bold">+51 999 888 777</h6>
+                        <small class="text-muted">Lun - Sáb: 9:00 AM - 8:00 PM</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-envelope text-success fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-success mb-3">Email</h5>
+                        <p class="text-muted mb-3">Escríbenos tus consultas</p>
+                        <h6 class="fw-bold">info@smartperu.com</h6>
+                        <small class="text-muted">Respuesta en 24 horas</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-map-marker-alt text-white fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold text-success mb-3">Ubicación</h5>
+                        <p class="text-muted mb-3">Visítanos en nuestra tienda</p>
+                        <h6 class="fw-bold">Av. Javier Prado 123</h6>
+                        <small class="text-muted">San Isidro, Lima - Perú</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<div th:insert="fragments :: footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
