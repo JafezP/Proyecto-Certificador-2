@@ -149,7 +149,7 @@
                 <th>IMEI/Serie</th>
                 <th>Estado Actual</th>
                 <th>Fecha Ingreso</th>
-                <th>Acciones</th>
+                <!--<th>Acciones</th>-->
             </tr>
             </thead>
             <tbody>
@@ -169,10 +169,10 @@
                     </span>
                 </td>
                 <td th:text="${#temporals.format(dispositivo.fechaRegistro, 'dd-MM-yyyy')}"></td>
-                <td class="action-links">
+               <!-- <td class="action-links">
                     <a th:href="@{/dispositivos/edit/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-info">Editar</a>
                     <a th:href="@{/dispositivos/details/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-secondary">Ver Detalle</a>
-                </td>
+                </td> -->
             </tr>
             <tr th:if="${#lists.isEmpty(dispositivos)}">
                 <td colspan="9" class="text-center">No hay dispositivos para mostrar con los filtros aplicados.</td>

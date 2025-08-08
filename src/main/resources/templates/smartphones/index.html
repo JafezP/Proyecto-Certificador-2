@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Smartphones</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center text-success mb-4">Smartphones Disponibles</h1>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <form action="/smartphones" method="get">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control"
+                           th:value="${keyword}" placeholder="Buscar por marca o modelo..." aria-label="Buscar">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(smartphones)}" class="row g-4">
+        <div th:each="smartphone : ${smartphones}" class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-light rounded p-3 mb-3">
+                        <i class="fas fa-mobile-alt text-success" style="font-size: 60px;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2" th:text="${smartphone.marca} + ' ' + ${smartphone.modelo}"></h5>
+                    <p class="text-muted small mb-1" th:text="'Color: ' + ${smartphone.color}"></p>
+                    <p class="text-muted small mb-3" th:text="'Almacenamiento: ' + ${smartphone.almacenamiento}"></p>
+                    <h4 class="text-warning fw-bold mb-3" th:text="'S/ ' + ${#numbers.formatDecimal(smartphone.precio, 1, 2)}"></h4>
+                    <a th:href="@{/smartphones/{id}(id=${smartphone.idSmartPhone})}" class="btn btn-success btn-sm">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(smartphones)}" class="text-center mt-5">
+        <p class="lead text-muted">No se encontraron smartphones disponibles en este momento.</p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

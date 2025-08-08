@@ -37,4 +37,12 @@ public class SmartPhoneService {
     public SmartPhone buscarPorId(Integer id) {
         return smartPhoneRepository.findById(id).orElse(null);
     }
+
+    // Nuevo método de búsqueda
+    public List<SmartPhone> search(String keyword) {
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            return smartPhoneRepository.searchByMarcaOrModelo(keyword);
+        }
+        return smartPhoneRepository.findAll();
+    }
 }
