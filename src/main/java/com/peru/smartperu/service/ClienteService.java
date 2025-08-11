@@ -1,6 +1,5 @@
 package com.peru.smartperu.service;
 
-
 import com.peru.smartperu.model.Cliente;
 import com.peru.smartperu.repository.ClienteRepository;
 import com.peru.smartperu.repository.OrdenReparacionRepository;
@@ -19,8 +18,13 @@ public class ClienteService {
 
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
-
     }
+
+    // Nuevo método para buscar clientes por una palabra clave
+    public List<Cliente> searchByKeyword(String keyword) {
+        return clienteRepository.searchByKeyword(keyword);
+    }
+
     public Cliente findById (Integer id) {
         return clienteRepository.findById(id).orElse(null);
     }
@@ -33,7 +37,6 @@ public class ClienteService {
             return false;
         }
 
-
         Optional<Cliente> clienteOpt = clienteRepository.findById(idCliente);
         if (clienteOpt.isPresent()) {
             clienteRepository.deleteById(idCliente);
@@ -43,7 +46,6 @@ public class ClienteService {
     }
 
     public boolean hasAssociatedOrdersOrPurchases(Integer clienteId) {
-
         return ordenReparacionRepository.existsByClienteIdCliente(clienteId);
     }
 }

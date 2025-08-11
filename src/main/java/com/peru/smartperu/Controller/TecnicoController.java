@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -19,9 +20,27 @@ public class TecnicoController {
     private final TecnicoService tecnicoService;
 
     // Lista todos los tecnicos que esten activos
+    // Se agregan parámetros opcionales para la búsqueda
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("tecnicos", tecnicoService.findAll());
+    public String index(Model model,
+                        @RequestParam(value = "search", required = false) String search) {
+
+        List<Tecnico> tecnicos;
+        if (search != null && !search.trim().isEmpty()) {
+            tecnicos = tecnicoService.searchByKeyword(search);
+            model.addAttribute("search", search);
+        } else {
+            tecnicos = tecnicoService.findAll();
+        }
+
+        model.addAttribute("tecnicos", tecnicos);
+
+        // Mensaje si no se encuentran resultados de la búsqueda
+        // Se corrige el mensaje para que cumpla con el criterio de aceptación
+        if (tecnicos.isEmpty() && search != null) {
+            model.addAttribute("noResultsMessage", "No se encontraron técnicos con los criterios ingresados.");
+        }
+
         return "tecnicos/index";
     }
 

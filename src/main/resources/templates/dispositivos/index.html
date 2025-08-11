@@ -166,6 +166,9 @@
                 <td class="action-links">
                     <a th:href="@{/dispositivos/edit/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-info">Editar</a>
                     <a th:href="@{/dispositivos/details/{id}(id=${dispositivo.idDispositivo})}" class="btn btn-sm btn-secondary">Ver Detalle</a>
+                    <form th:action="@{/dispositivos/delete/{id}(id=${dispositivo.idDispositivo})}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este dispositivo? No se podrá recuperar.');">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(dispositivos) && (searchImei == null && searchCliente == null && searchTipo == null)}">

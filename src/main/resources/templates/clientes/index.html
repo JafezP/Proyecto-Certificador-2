@@ -66,26 +66,29 @@
 <div class="container">
     <h1>Lista de Clientes Registrados</h1>
 
-    <div class="mb-4 text-center">
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <form action="/clientes" method="get" class="d-flex w-50">
+            <input type="text" name="search" th:value="${search}" class="form-control me-2" placeholder="Buscar por DNI, Nombre, Correo, etc." aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            <a th:if="${search}" th:href="@{/clientes}" class="btn btn-outline-secondary ms-2">Limpiar</a>
+        </form>
         <a href="/clientes/create" class="btn btn-primary">Registrar Nuevo Cliente</a>
     </div>
 
-    <div class="row">
-        <div class="col-12 mb-3">
-            <div th:if="${successSave}" class="alert alert-success alert-dismissible fade show mt-3"
-                 role="alert">
-                <span th:text="${successSave}"></span>
-                <!--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-            </div>
-        </div>
+    <div th:if="${successSave}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successSave}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <p th:text="${successMessage}"></p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
         <p th:text="${errorMessage}"></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div th:if="${noResultsMessage}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <p th:text="${noResultsMessage}"></p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
@@ -100,9 +103,7 @@
                 <th>Email</th>
                 <th>Dirección</th>
                 <th>Fecha de registro</th>
-                <th>Editar</th>
-                <th>Perfil</th>
-                <th>Eliminar</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -114,15 +115,10 @@
                 <td th:text="${cliente.correoElectronico}"></td>
                 <td th:text="${cliente.direccion}"></td>
                 <td th:text="${cliente.fechaRegistro}"></td>
-                <td class="text-center">
+                <td class="action-links">
                     <a th:href="@{/clientes/edit/{id}(id=${cliente.idCliente})}"
                        class="btn btn-secondary btn-sm">Editar</a>
-                </td>
-                <td>
                     <a th:href="@{/clientes/details/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-info">Ver Perfil</a>
-                </td>
-                <td class="action-links">
-                    <!--<a th:href="@{/clientes/edit/{id}(id=${cliente.idCliente})}" class="btn btn-sm btn-info">Editar</a>-->
                     <form th:action="@{/clientes/delete/{id}(id=${cliente.idCliente})}" method="post" class="form-delete"
                           onsubmit="return confirm('¿Estás seguro de que quieres eliminar este cliente? Esta acción podría no ser posible si tiene órdenes o compras asociadas.');">
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
@@ -130,7 +126,10 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(clientes)}">
-                <td colspan="7" class="text-center">No hay clientes registrados.</td>
+                <td colspan="8" class="text-center">
+                    <span th:if="${search == null}">No hay clientes registrados.</span>
+                    <span th:if="${search != null}" th:text="${noResultsMessage}">No se encontraron clientes con los criterios ingresados.</span>
+                </td>
             </tr>
             </tbody>
         </table>

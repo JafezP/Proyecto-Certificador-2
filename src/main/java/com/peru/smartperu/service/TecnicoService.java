@@ -25,4 +25,9 @@ public class TecnicoService {
     public Tecnico save(Tecnico tecnico) {
         return tecnicoRepository.save(tecnico);
     }
+
+    // Nuevo método de servicio para la búsqueda
+    public List<Tecnico> searchByKeyword(String keyword) {
+        return tecnicoRepository.searchByKeyword(keyword);
+    }
 }

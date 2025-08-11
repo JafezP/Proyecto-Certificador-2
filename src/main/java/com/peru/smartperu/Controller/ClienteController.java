@@ -1,6 +1,5 @@
 package com.peru.smartperu.Controller;
 
-
 import ch.qos.logback.core.net.server.Client;
 import com.peru.smartperu.model.Cliente;
 import com.peru.smartperu.service.ClienteService;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -20,15 +20,29 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
-    public String index(Model model){
-    model.addAttribute("clientes", clienteService.findAll());
-    return "clientes/index";
+    public String index(Model model, @RequestParam(value = "search", required = false) String search) {
+        List<Cliente> clientes;
+        if (search != null && !search.trim().isEmpty()) {
+            clientes = clienteService.searchByKeyword(search);
+            model.addAttribute("search", search);
+        } else {
+            clientes = clienteService.findAll();
+        }
+
+        model.addAttribute("clientes", clientes);
+
+        // Mensaje si no se encuentran resultados de la búsqueda
+        if (clientes.isEmpty() && search != null) {
+            model.addAttribute("noResultsMessage", "No se encontraron clientes con los criterios ingresados.");
+        }
+
+        return "clientes/index";
     }
 
     @GetMapping("/create")
     public String create (Model model){
-    model.addAttribute("clientes", new Cliente());
-    return "clientes/create";
+        model.addAttribute("clientes", new Cliente());
+        return "clientes/create";
     }
 
     @PostMapping("/save")

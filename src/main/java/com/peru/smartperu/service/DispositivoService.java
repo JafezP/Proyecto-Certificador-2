@@ -77,6 +77,23 @@ public class DispositivoService {
         return dispositivoRepository.save(existingDispositivo);
     }
 
+
+    // --- NUEVO MÉTODO PARA ELIMINAR ---
+    @Transactional
+    public boolean deleteById(Integer id) {
+        Optional<Dispositivo> dispositivoOpt = dispositivoRepository.findById(id);
+        if (dispositivoOpt.isPresent()) {
+            Dispositivo dispositivo = dispositivoOpt.get();
+            if (dispositivo.getOrdenesReparacion() != null && !dispositivo.getOrdenesReparacion().isEmpty()) {
+                // No se puede eliminar si tiene órdenes asociadas
+                return false;
+            }
+            dispositivoRepository.delete(dispositivo);
+            return true;
+        }
+        return false;
+    }
+
     // --- MÉTODOS CORREGIDOS PARA LA HU: VISUALIZAR RESUMEN DE DISPOSITIVOS ---
 
     @Transactional(readOnly = true)

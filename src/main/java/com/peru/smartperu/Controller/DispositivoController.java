@@ -210,4 +210,16 @@ public class DispositivoController {
 
         return "dispositivos/resumen";
     }
+
+    // --- NUEVO MÉTODO PARA ELIMINAR ---
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+        boolean isDeleted = dispositivoService.deleteById(id);
+        if (isDeleted) {
+            redirectAttributes.addFlashAttribute("successMessage", "Dispositivo eliminado correctamente.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "No se pudo eliminar el dispositivo. Puede tener órdenes de reparación asociadas.");
+        }
+        return "redirect:/dispositivos";
+    }
 }
